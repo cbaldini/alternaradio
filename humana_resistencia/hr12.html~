@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- CSS  -->
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
+<title>Alterna Radio FM 88.1 MHZ</title>
+<link rel="icon" type="image/x-icon" href="favicon.png">
+</head>
+<body style="background-color:#272727; text-align: center;">
+
+<h2>Humana Resistencia - Programa 12</h2>
+
+    <audio controls autoplay> 
+      <source src="programas/humana_resistencia/hr12.mp3" type="audio/mpeg">
+    </audio> 
+
+<div class="flyer">
+<img src="img/hr.png" width="400" height="600" alt="">
+</div>
+
+<a href="hr12.html" title="Episodio 12"><strong>Descargar</strong></a>
+
+
+</body>
+</html>

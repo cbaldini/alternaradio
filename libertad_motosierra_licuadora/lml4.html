@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- CSS  -->
+<link href="../style.css" rel="stylesheet" type="text/css" />
+<link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
+<title>Alterna Radio FM 88.1 MHZ</title>
+<link rel="icon" type="image/x-icon" href="../favicon.png">
+    <script type="text/javascript">
+        (function() {
+            window.Copy = function() {
+                var url = CONFIG.domain + "#lml/lml4";
+                var textarea = document.getElementById("urlCopied");
+                if (textarea) {
+                    textarea.value = url;
+                    textarea.focus();
+                    textarea.select();
+
+                    try {
+                        var success = document.execCommand('copy');
+                        if (success) {
+                            console.log("Copiado exitosamente:", url);
+                        }
+                    } catch(err) {
+                        console.error("execCommand error:", err);
+                    }
+
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(url)
+                            .then(function() {
+                                console.log("Clipboard API: copiado");
+                            })
+                            .catch(function(err) {
+                                console.error("Clipboard API error:", err);
+                            });
+                    }
+                }
+            };
+        })();
+    </script>
+    <script type="text/javascript">
+        // Cuando este archivo cargue, pausa la radio en vivo
+        if (typeof AudioManager !== 'undefined') {
+            AudioManager.pauseMainAudio();
+        }
+
+        // También monitorear cualquier elemento de audio en esta página
+        document.addEventListener('play', function(e) {
+            if (e.target.tagName === 'AUDIO' && e.target.id !== 'main-audio') {
+                if (typeof AudioManager !== 'undefined') {
+                    AudioManager.pauseMainAudio();
+                }
+            }
+        }, true);
+    </script>
+</head>
+<body style="background-color:#272727; text-align: center;">
+
+<h2>Libertad, Motosierra y Licuadora - Programa 4</h2>
+
+    <audio controls autoplay> 
+      <source src="../archivo/lml/lml4.ogg" type="audio/mpeg">
+    </audio>
+<a href="../archivo/lml/lml4.ogg"><strong>Descargar</strong></a>
+<div class="flyer">
+<img src="../img/lml.png" width="400" height="600" alt="">
+</div>
+            <input type="button" value="Copiar vínculo" onclick="Copy();" />
+            <a href="../archivo/lml/lml4.ogg"><input type="button" value="Descargar"></a>
+            <br />
+            <p>Vínculo: <textarea id="urlCopied" rows="1" cols="70"></textarea></p>
+</body>
+</html>

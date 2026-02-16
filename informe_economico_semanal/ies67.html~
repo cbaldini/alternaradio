@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- CSS  -->
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
+<title>Alterna Radio FM 88.1 MHZ</title>
+<link rel="icon" type="image/x-icon" href="favicon.png">
+    <script type="text/javascript">
+        function Copy() 
+            {
+                    urlCopied.innerHTML = "https://alternaradio.ar/programas/informe_economico_semanal/ies67.ogg" ;
+            }
+    </script><
+</head>
+<body style="background-color:#272727; text-align: center;">
+
+<h2>Informe Económico Semanal 67 - "Un Discurso Vacío y Devaluado"</h2>
+
+    <audio controls autoplay> 
+      <source src="programas/informe_economico_semanal/ies67.ogg" type="audio/mpeg">
+    </audio> 
+            <input type="button" value="Copiar vínculo" onclick="Copy();" />
+            <a href="programas/informe_economico_semanal/ies67.ogg"><input type="button" value="Descargar"></a>
+            <br />
+            <p>Vínculo: <textarea id="urlCopied" rows="1" cols="70"></textarea></p> 
+<div class="flyer">
+<img src="img/ies.png" width="550" height="640" alt="">
+</div>
+</body>
+</html>
