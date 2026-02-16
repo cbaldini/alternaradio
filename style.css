@@ -1,3 +1,4 @@
+/* Alterna Radio - Version 2.0.1 - Mobile Optimized */
 * {
 	box-sizing: border-box;
 }
@@ -213,8 +214,10 @@ body {
 	border: 1px;
 	display: flex;
 	width: 100%;
+	margin: 0;
 	text-align: center;
 	align-self: center;
+	padding-top: 25px;
 	background-color: black;
 }
 
@@ -531,13 +534,16 @@ iframe {
 @media screen and (max-width: 480px) {
 
 	.top {
-		flex-direction: column;
-		align-items: stretch;
+		flex-direction: row;
+		align-items: center;
+		flex-wrap: wrap;
 	}
 
 	.logo {
 		justify-content: center;
 		padding: 10px 0;
+		width: 100%;
+		order: 1;
 	}
 
 	.logo img {
@@ -547,23 +553,53 @@ iframe {
 
 	.player-section {
 		width: 100%;
-		padding: 10px;
+		padding: 5px;
+		order: 2;
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	.player-info-container {
+		flex-direction: row;
+		gap: 10px;
+		width: auto;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.player-info {
+		width: auto;
+		flex-direction: row;
+		gap: 3px;
+		align-items: center;
 	}
 
 	.main-player audio {
 		max-width: 100%;
 		height: 30px;
-	}
-
-	.player-info {
-		width: 100%;
+		width: 180px;
 	}
 
 	.player-info p {
-		font-size: 80%;
+		font-size: 75%;
+		margin: 0;
 	}
 
 	.player-info strong {
+		font-size: 75%;
+	}
+
+	.player-info strong p {
+		margin: 0;
+		display: inline;
+	}
+
+	#player-info-text {
+		font-size: 75%;
+	}
+
+	.player-info #title,
+	.player-info #listeners {
 		font-size: 75%;
 	}
 
