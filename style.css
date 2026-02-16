@@ -1,4 +1,4 @@
-/* Alterna Radio - Version 2.0.1 - Mobile Optimized */
+/* Alterna Radio - Version 2.0.2 - Mobile Fixed */
 * {
 	box-sizing: border-box;
 }
@@ -287,22 +287,24 @@ body {
 	gap: 5px;
 }
 
-.player-info p {
-	margin: 0;
-	padding: 0;
+.player-info .player-label {
+	font-family: arial;
+	font-style: italic;
+	color: whitesmoke;
+	font-size: 85%;
+	font-weight: normal;
+}
+
+.player-info #title,
+.player-info #listeners {
+	font-family: arial;
+	font-style: italic;
+	color: whitesmoke;
 	font-size: 90%;
 }
 
 .player-info strong {
 	font-size: 85%;
-}
-
-#player-info-text {
-	font-family: arial;
-	font-style: italic;
-	color: whitesmoke;
-	font-size: 100%;
-	position: relative;
 }
 
 
@@ -414,26 +416,14 @@ iframe {
 		align-items: center;
 	}
 
-	.player-info p {
-		margin: 0;
-	}
-
-	.player-info strong {
-		margin: 0;
-	}
-
-	.player-info strong p {
-		margin: 0;
-		display: inline;
-	}
-
-	#player-info-text {
-		font-size: 85%;
+	.player-info .player-label {
+		font-size: 75%;
+		white-space: nowrap;
 	}
 
 	.player-info #title,
 	.player-info #listeners {
-		font-size: 85%;
+		font-size: 75%;
 	}
 
 	/* Show hamburger menu on mobile */
@@ -580,27 +570,14 @@ iframe {
 		width: 180px;
 	}
 
-	.player-info p {
-		font-size: 75%;
-		margin: 0;
-	}
-
-	.player-info strong {
-		font-size: 75%;
-	}
-
-	.player-info strong p {
-		margin: 0;
-		display: inline;
-	}
-
-	#player-info-text {
-		font-size: 75%;
+	.player-info .player-label {
+		font-size: 70%;
+		white-space: nowrap;
 	}
 
 	.player-info #title,
 	.player-info #listeners {
-		font-size: 75%;
+		font-size: 70%;
 	}
 
 	.navbar a {
