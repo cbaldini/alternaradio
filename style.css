@@ -1,0 +1,581 @@
+* {
+	box-sizing: border-box;
+}
+
+#navegador ul{
+   list-style-type: none;
+   text-align: left;
+} 
+
+#navegador li{
+   display: inline;
+   text-align: center;
+   margin: 0 10px 0 0;
+} 
+
+#navegador li a {
+   padding: 2px 7px 2px 7px;
+   color: whitesmoke;
+   text-decoration: none;
+	font-family: 'Digital Dare';
+} 
+
+#navegador li a:hover{
+   background-color: #333333;
+   color:  #d20000;
+}
+
+
+.estudio{
+	top: -1px;
+	left: -2px;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: -1;
+	opacity: 40%;
+}
+
+p {
+	font-family: arial;
+	font-style: italic;
+	color: whitesmoke;
+	font-size: 100%;
+}
+
+h1{
+	color: whitesmoke;
+	font-family: 'Digital Dare';
+	text-decoration: none;
+	font-size: 100%;
+	
+}
+
+h2{
+	color: whitesmoke;
+	font-family: 'Courier';
+	font-weight: bold;
+	text-decoration: none;
+	font-size: 150%;
+	
+}
+
+#output{
+	color: whitesmoke;
+	font-family: 'Digital Dare';
+	text-decoration: none;
+	font-size: 100%;
+	
+}
+
+@font-face {
+  font-family: 'Digital Dare';
+  src: url('fonts/digital_dare.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+a{
+	color: white;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+/* Navbar container */
+.navbar {
+  overflow: visible;
+  background-color: #333;
+  font-family: Arial;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  flex-basis: 100%;
+  order: 2;
+  flex-wrap: wrap;
+}
+
+.top {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	background-color: #272727;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+	align-items: center;
+	padding: 0px;
+}
+
+/* Hamburger menu styles */
+.hamburger {
+	display: none;
+	flex-direction: column;
+	cursor: pointer;
+	background: none;
+	border: none;
+	padding: 10px;
+	order: 3;
+}
+
+.hamburger span {
+	width: 25px;
+	height: 3px;
+	background-color: white;
+	margin: 5px 0;
+	transition: 0.3s;
+	display: block;
+}
+
+.hamburger.active span:nth-child(1) {
+	transform: rotate(-45deg) translate(-8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+	opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+	transform: rotate(45deg) translate(-7px, -7px);
+}
+
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* The dropdown container */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* Add a red background color to navbar links on hover */
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.container {
+	border: 1px;
+	display: flex;
+	width: 100%;
+	text-align: center;
+	align-self: center;
+	background-color: black;
+}
+
+.flyer{
+	padding-top: 25px;
+	padding-left: 25px;
+	text-align: center;
+}
+
+.logo {
+	width: auto;
+	height: auto;
+	padding: 0px;
+	position: relative;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	order: 1;
+}
+
+.logo img {
+	width: 180px;
+	height: auto;
+}
+
+.player-section {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 20px;
+	padding: 10px;
+	flex: 1;
+	order: 1;
+}
+
+.main-player {
+	padding: 0;
+	position: relative;
+	flex: 0 0 auto;
+	order: 2;
+	margin-left: auto;
+}
+
+.main-player audio {
+	margin-right: 0;
+	width: 200px;
+	height: 20px;
+}
+
+.player-info-container {
+	display: flex;
+	flex-direction: row;
+	gap: 30px;
+	align-items: center;
+	order: 1;
+}
+
+.player-info {
+	padding: 0;
+	position: relative;
+	align-self: center;
+	text-align: left;
+	flex: 0 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.player-info p {
+	margin: 0;
+	padding: 0;
+	font-size: 90%;
+}
+
+.player-info strong {
+	font-size: 85%;
+}
+
+#player-info-text {
+	font-family: arial;
+	font-style: italic;
+	color: whitesmoke;
+	font-size: 100%;
+	position: relative;
+}
+
+
+iframe {
+	overflow-x: scroll;
+	position: absolute;
+}
+
+#content {
+	min-height: 100vh;
+	padding: 0;
+	margin: 0;
+	overflow-y: auto;
+}
+
+/* Main: fondo pegado a la barra */
+.main-container {
+	padding-top: 0;
+	margin: 0;
+}
+
+/* Main: imágenes con el mismo alto */
+.main-image {
+	height: 600px !important;
+	width: auto !important;
+	max-width: 100%;
+	object-fit: contain;
+	display: block;
+	margin: 0 auto;
+}
+
+/* Imágenes responsivas en contenido */
+.container img:not(.main-image),
+.flyer img:not(.main-image) {
+	max-width: 100%;
+	height: auto;
+}
+
+/* RESPONSIVE STYLES - Tablet (768px and below) */
+@media screen and (max-width: 1024px) {
+	.player-section {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.main-player audio {
+		margin-left: 0;
+		width: 100%;
+		max-width: 300px;
+	}
+
+	.player-info-container {
+		flex-direction: column;
+		gap: 15px;
+	}
+
+	.logo img {
+		width: 120px;
+		height: auto;
+	}
+
+
+	#content {
+		padding: 0;
+	}
+
+	.main-image {
+		height: 500px !important;
+	}
+}
+
+/* RESPONSIVE STYLES - Mobile (768px and below) */
+@media screen and (max-width: 768px) {
+
+	.top {
+		flex-wrap: wrap;
+	}
+
+	.logo img {
+		width: 50vw;
+		height: auto;
+	}
+
+	.player-section {
+		flex-direction: column;
+		gap: 10px;
+		flex: 1;
+		width: 100%;
+	}
+
+	.main-player audio {
+		margin-left: 0;
+		width: 100%;
+		max-width: 250px;
+	}
+
+	.player-info-container {
+		flex-direction: column;
+		gap: 10px;
+		width: 100%;
+	}
+
+	.player-info {
+		width: 100%;
+	}
+
+	/* Show hamburger menu on mobile */
+	.hamburger {
+		display: flex;
+	}
+
+	/* Hide navbar by default on mobile */
+	.navbar {
+		order: 3;
+		width: 100%;
+		flex-basis: 100%;
+		flex-direction: column;
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.3s ease-out;
+	}
+
+	/* Show navbar when active */
+	.navbar.active {
+		max-height: 500px;
+		transition: max-height 0.3s ease-in;
+	}
+
+	.navbar a {
+		float: none;
+		padding: 12px 16px;
+		width: 100%;
+		text-align: left;
+		border-bottom: 1px solid #555;
+	}
+
+	.dropdown {
+		float: none;
+		width: 100%;
+	}
+
+	.dropdown .dropbtn {
+		padding: 12px 16px;
+		width: 100%;
+		text-align: left;
+	}
+
+	.dropdown-content {
+		position: static;
+		display: none;
+		background-color: #222;
+		box-shadow: none;
+		min-width: auto;
+	}
+
+	.dropdown-content a {
+		padding-left: 32px;
+		background-color: #222;
+		color: white;
+	}
+
+	.dropdown-content a:hover {
+		background-color: #d20000;
+		color: white;
+	}
+
+	/* Show dropdown on mobile when active */
+	.dropdown.active .dropdown-content {
+		display: block;
+	}
+
+	.dropdown.active .dropbtn {
+		background-color: red;
+	}
+
+	p {
+		font-size: 90%;
+	}
+
+	#content {
+		padding: 0;
+	}
+
+	.main-image {
+		height: auto !important;
+		width: 100% !important;
+	}
+}
+
+/* RESPONSIVE STYLES - Small phones (480px and below) */
+@media screen and (max-width: 480px) {
+
+	.top {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.logo {
+		justify-content: center;
+		padding: 10px 0;
+	}
+
+	.logo img {
+		width: 50vw;
+		height: auto;
+	}
+
+	.player-section {
+		width: 100%;
+		padding: 10px;
+	}
+
+	.main-player audio {
+		max-width: 100%;
+		height: 30px;
+	}
+
+	.player-info {
+		width: 100%;
+	}
+
+	.player-info p {
+		font-size: 80%;
+	}
+
+	.player-info strong {
+		font-size: 75%;
+	}
+
+	.navbar a {
+		padding: 10px 12px;
+		font-size: 14px;
+	}
+
+	p {
+		font-size: 85%;
+	}
+
+	#content {
+		padding: 0;
+	}
+
+	.main-image {
+		height: auto !important;
+		width: 100% !important;
+	}
+}
+
+/* Player gris oscuro */
+audio {
+	color: #e6e6e6;
+}
+
+audio::-webkit-media-controls-panel {
+	background-color: #2b2b2b;
+	color: #e6e6e6;
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-mute-button,
+audio::-webkit-media-controls-volume-slider,
+audio::-webkit-media-controls-timeline,
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display,
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-pause-button {
+	color: #e6e6e6;
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-pause-button {
+	filter: invert(1) brightness(1.2);
+}
+
+/* Mantener tamaño uniforme en todos los reproductores */
+audio {
+	width: 200px;
+	height: 20px;
+}
