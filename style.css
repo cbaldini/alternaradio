@@ -1,4 +1,4 @@
-/* Alterna Radio - Version 2.0.6 - Single Line Player Info */
+/* Alterna Radio - Version 2.0.8 - Fixed Content Overlap */
 * {
 	box-sizing: border-box;
 }
@@ -83,6 +83,7 @@ a{
 body {
 	margin: 0;
 	padding: 0;
+	padding-top: 150px; /* Fallback mínimo, será ajustado por JavaScript */
 }
 
 /* Navbar container */
@@ -95,7 +96,7 @@ body {
   align-items: center;
   width: 100%;
   flex-basis: 100%;
-  order: 3;
+  order: 4;
   flex-wrap: wrap;
 }
 
@@ -122,7 +123,7 @@ body {
 	background: none;
 	border: none;
 	padding: 10px;
-	order: 4;
+	order: 1;
 }
 
 .hamburger span {
@@ -235,7 +236,7 @@ body {
 	flex-shrink: 0;
 	display: flex;
 	align-items: center;
-	order: 1;
+	order: 2;
 }
 
 .logo img {
@@ -251,7 +252,7 @@ body {
 	gap: 20px;
 	padding: 10px;
 	flex: 1;
-	order: 2;
+	order: 3;
 }
 
 .main-player {
@@ -395,12 +396,19 @@ iframe {
 		height: auto;
 	}
 
+	.logo {
+		order: 2;
+		flex: 1;
+		justify-content: center;
+	}
+
 	.player-section {
 		flex-direction: row;
 		gap: 10px;
 		flex: 1;
 		width: 100%;
 		justify-content: center;
+		order: 3;
 	}
 
 	.main-player audio {
@@ -436,9 +444,8 @@ iframe {
 	/* Show hamburger menu on mobile */
 	.hamburger {
 		display: flex;
-		width: 100%;
-		justify-content: flex-start;
-		order: 4;
+		width: auto;
+		order: 1;
 	}
 
 	/* Hide navbar by default on mobile */
@@ -542,7 +549,9 @@ iframe {
 	.logo {
 		justify-content: center;
 		padding: 10px 0;
-		width: 100%;
+		width: auto;
+		flex: 1;
+		order: 2;
 	}
 
 	.logo img {
@@ -555,17 +564,14 @@ iframe {
 		padding: 5px;
 		flex-direction: row;
 		justify-content: center;
+		order: 3;
 	}
 
 	.hamburger {
-		width: 100%;
-		justify-content: flex-start;
-		order: 4;
+		width: auto;
+		order: 1;
 	}
 
-	.navbar {
-		order: 5;
-	}
 
 	.player-info-container {
 		flex-direction: row;
