@@ -1,4 +1,4 @@
-/* Alterna Radio - Version 2.0.8 - Fixed Content Overlap */
+/* Alterna Radio - Version 2.0.9 - Fixed Program Pages Mobile Layout */
 * {
 	box-sizing: border-box;
 }
@@ -535,6 +535,50 @@ iframe {
 		display: flex;
 		justify-content: center;
 	}
+
+	/* Layout de programas en móvil: enlaces izquierda, imagen derecha */
+	body[style*="text-align: center"] .container {
+		flex-direction: row;
+		align-items: flex-start;
+		padding: 10px;
+	}
+
+	body[style*="text-align: center"] .container .flyer:first-child {
+		order: 2;
+		width: 35%;
+		padding: 0 0 0 10px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	body[style*="text-align: center"] .container .flyer:nth-child(2) {
+		order: 1;
+		width: 65%;
+		padding: 0;
+		text-align: left;
+	}
+
+	body[style*="text-align: center"] .container .flyer img {
+		width: 100% !important;
+		height: auto !important;
+		max-width: 180px;
+	}
+
+	body[style*="text-align: center"] .container .flyer h2 {
+		font-size: 110%;
+		margin: 5px 0 10px 0;
+	}
+
+	body[style*="text-align: center"] .container .flyer p {
+		font-size: 85%;
+		margin: 5px 0;
+		text-align: left;
+	}
+
+	body[style*="text-align: center"] .container .flyer a {
+		word-break: break-word;
+	}
 }
 
 /* RESPONSIVE STYLES - Small phones (480px and below) */
@@ -631,6 +675,50 @@ iframe {
 		width: 100%;
 		display: flex;
 		justify-content: center;
+	}
+
+	/* Layout de programas en móvil pequeño: enlaces izquierda, imagen derecha */
+	body[style*="text-align: center"] .container {
+		flex-direction: row;
+		align-items: flex-start;
+		padding: 5px;
+	}
+
+	body[style*="text-align: center"] .container .flyer:first-child {
+		order: 2;
+		width: 30%;
+		padding: 0 0 0 5px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	body[style*="text-align: center"] .container .flyer:nth-child(2) {
+		order: 1;
+		width: 70%;
+		padding: 0;
+		text-align: left;
+	}
+
+	body[style*="text-align: center"] .container .flyer img {
+		width: 100% !important;
+		height: auto !important;
+		max-width: 120px;
+	}
+
+	body[style*="text-align: center"] .container .flyer h2 {
+		font-size: 95%;
+		margin: 2px 0 8px 0;
+	}
+
+	body[style*="text-align: center"] .container .flyer p {
+		font-size: 75%;
+		margin: 3px 0;
+		text-align: left;
+	}
+
+	body[style*="text-align: center"] .container .flyer a {
+		word-break: break-word;
 	}
 }
 
