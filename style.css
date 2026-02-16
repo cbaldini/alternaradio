@@ -1,4 +1,4 @@
-/* Alterna Radio - Version 2.0.3 - Hamburger Left */
+/* Alterna Radio - Version 2.0.6 - Single Line Player Info */
 * {
 	box-sizing: border-box;
 }
@@ -95,7 +95,7 @@ body {
   align-items: center;
   width: 100%;
   flex-basis: 100%;
-  order: 4;
+  order: 3;
   flex-wrap: wrap;
 }
 
@@ -122,7 +122,7 @@ body {
 	background: none;
 	border: none;
 	padding: 10px;
-	order: 1;
+	order: 4;
 }
 
 .hamburger span {
@@ -235,7 +235,7 @@ body {
 	flex-shrink: 0;
 	display: flex;
 	align-items: center;
-	order: 2;
+	order: 1;
 }
 
 .logo img {
@@ -251,7 +251,7 @@ body {
 	gap: 20px;
 	padding: 10px;
 	flex: 1;
-	order: 3;
+	order: 2;
 }
 
 .main-player {
@@ -274,6 +274,7 @@ body {
 	gap: 30px;
 	align-items: center;
 	order: 1;
+	flex-wrap: nowrap;
 }
 
 .player-info {
@@ -283,8 +284,10 @@ body {
 	text-align: left;
 	flex: 0 0 auto;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	gap: 5px;
+	align-items: center;
+	white-space: nowrap;
 }
 
 .player-info .player-label {
@@ -293,6 +296,8 @@ body {
 	color: whitesmoke;
 	font-size: 85%;
 	font-weight: normal;
+	margin: 0;
+	padding: 0;
 }
 
 .player-info #title,
@@ -301,6 +306,8 @@ body {
 	font-style: italic;
 	color: whitesmoke;
 	font-size: 90%;
+	margin: 0;
+	padding: 0;
 }
 
 .player-info strong {
@@ -429,6 +436,9 @@ iframe {
 	/* Show hamburger menu on mobile */
 	.hamburger {
 		display: flex;
+		width: 100%;
+		justify-content: flex-start;
+		order: 4;
 	}
 
 	/* Hide navbar by default on mobile */
@@ -545,6 +555,16 @@ iframe {
 		padding: 5px;
 		flex-direction: row;
 		justify-content: center;
+	}
+
+	.hamburger {
+		width: 100%;
+		justify-content: flex-start;
+		order: 4;
+	}
+
+	.navbar {
+		order: 5;
 	}
 
 	.player-info-container {
