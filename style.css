@@ -439,13 +439,13 @@ iframe {
 
 	.logo-info-wrapper {
 		display: flex;
-		flex-direction: row;
-		gap: 10px;
-		width: auto;
+		flex-direction: column;
+		gap: 5px;
+		width: 100%;
 		order: 1;
 		padding: 10px 0 10px 10px;
-		align-items: center;
-		flex: 0 0 auto;
+		align-items: flex-start;
+		flex: 1;
 	}
 
 	.logo {
@@ -466,12 +466,12 @@ iframe {
 		display: flex;
 		flex-direction: row;
 		gap: 15px;
-		width: auto;
+		width: 100%;
 		flex-wrap: wrap;
-		order: 3;
+		order: 2;
 		padding: 0;
 		align-items: center;
-		margin-top: 5px;
+		margin-top: 0;
 		margin-left: 10px;
 	}
 
@@ -503,15 +503,16 @@ iframe {
 	.hamburger {
 		display: flex;
 		width: auto;
-		order: 2;
-		margin-left: 0;
+		order: 1;
+		margin-left: auto;
 		padding: 10px 15px;
 		flex: 0 0 auto;
+		align-self: center;
 	}
 
 	/* Hide navbar by default on mobile */
 	.navbar {
-		order: 4;
+		order: 3;
 		width: 100%;
 		flex-basis: 100%;
 		flex-direction: column;
@@ -642,13 +643,13 @@ iframe {
 
 	.logo-info-wrapper {
 		display: flex;
-		flex-direction: row;
-		gap: 8px;
+		flex-direction: column;
+		gap: 5px;
 		order: 1;
 		padding: 8px 0 8px 10px;
-		align-items: center;
-		flex: 0 0 auto;
-		width: auto;
+		align-items: flex-start;
+		flex: 1;
+		width: 100%;
 	}
 
 	.logo {
@@ -671,12 +672,12 @@ iframe {
 		display: flex;
 		flex-direction: row;
 		gap: 10px;
-		width: auto;
+		width: 100%;
 		flex-wrap: wrap;
 		justify-content: flex-start;
-		order: 3;
+		order: 2;
 		align-items: center;
-		margin-top: 5px;
+		margin-top: 0;
 		margin-left: 10px;
 		padding: 0;
 	}
@@ -702,11 +703,12 @@ iframe {
 
 	.hamburger {
 		width: auto;
-		order: 2;
-		margin-left: 0;
+		order: 1;
+		margin-left: auto;
 		padding: 8px;
 		flex: 0 0 auto;
 		display: flex;
+		align-self: center;
 	}
 
 	.hamburger span {
@@ -716,7 +718,7 @@ iframe {
 	}
 
 	.navbar {
-		order: 4;
+		order: 3;
 		width: 100%;
 		flex-basis: 100%;
 		flex-direction: column;
