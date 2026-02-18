@@ -66,6 +66,11 @@ function myData(Data) {
   document.getElementById("listeners").textContent = listeners;
   document.getElementById("title-mobile").textContent = title;
   document.getElementById("listeners-mobile").textContent = listeners;
+
+  // Actualizar el título de la ventana del navegador
+  if (title) {
+    document.title = title + ' | Alterna Radio FM 88.1 MHZ';
+  }
 }
 
 const contentLoader = {
