@@ -142,24 +142,38 @@ document.addEventListener('DOMContentLoaded', function() {
   audioSource.src = CONFIG.streamUrl;
   audioElement.load();
 
-  // Intentar reproducir con manejo de promesas
-  setTimeout(() => {
+  // Estrategia de autoplay: iniciar con muted y luego intentar quitar mute
+  function startAutoplay() {
+    audioElement.muted = true;
     const playPromise = audioElement.play();
+
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
-          console.log('Autoplayer iniciado correctamente');
+          console.log('Autoplayer iniciado correctamente (muted)');
+          // Intentar quitar mute después de 1 segundo
+          setTimeout(() => {
+            audioElement.muted = false;
+            console.log('Mute removido');
+          }, 1000);
         })
         .catch((error) => {
-          console.log('Autoplay bloqueado o error:', error.message);
-          // Si el autoplay es bloqueado, permitir que el usuario haga clic para reproducir
-          audioElement.muted = true;
-          audioElement.play().catch(() => {
-            console.log('No se pudo iniciar reproducción automática');
-          });
+          console.log('Error al iniciar autoplay:', error.message);
+          // Fallback: agregar listener para reproducir cuando el usuario interactúe
+          const userInteractionHandler = () => {
+            audioElement.muted = false;
+            audioElement.play().catch(err => console.log('Error en fallback:', err));
+            document.removeEventListener('click', userInteractionHandler);
+            document.removeEventListener('touchend', userInteractionHandler);
+          };
+          document.addEventListener('click', userInteractionHandler);
+          document.addEventListener('touchend', userInteractionHandler);
         });
     }
-  }, 500);
+  }
+
+  // Iniciar autoplay después de que los recursos estén cargados
+  setTimeout(startAutoplay, 500);
 
   AudioManager.init();
   contentLoader.init();
@@ -278,7 +292,7 @@ function Copy() {
 	  </div>
 
         <div class="main-player">
-            <audio id="main-audio" controls autoplay>
+            <audio id="main-audio" controls>
                 <source id="audio-source" src="https://alternaradio.ar:8443/play" type="audio/mpeg">
                 Tu navegador no soporta el elemento de audio.
             </audio>
