@@ -137,14 +137,24 @@ document.addEventListener('DOMContentLoaded', function() {
   audioSource.src = CONFIG.streamUrl;
   audioElement.load();
 
-  const playPromise = audioElement.play();
-  if (playPromise !== undefined) {
-    playPromise.catch(() => {});
-  }
-
-  audioElement.addEventListener('error', function() {
-    console.error('Error en el elemento de audio:', audioElement.error);
-  });
+  // Intentar reproducir con manejo de promesas
+  setTimeout(() => {
+    const playPromise = audioElement.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          console.log('Autoplayer iniciado correctamente');
+        })
+        .catch((error) => {
+          console.log('Autoplay bloqueado o error:', error.message);
+          // Si el autoplay es bloqueado, permitir que el usuario haga clic para reproducir
+          audioElement.muted = true;
+          audioElement.play().catch(() => {
+            console.log('No se pudo iniciar reproducción automática');
+          });
+        });
+    }
+  }, 500);
 
   AudioManager.init();
   contentLoader.init();
