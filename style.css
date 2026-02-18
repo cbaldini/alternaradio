@@ -128,38 +128,206 @@ body {
 	width: auto;
 }
 
-/* Info container oculto por defecto (móvil) */
+/* Wrapper para logo */
+.logo-info-wrapper {
+	display: flex;
+	flex-direction: row;
+	gap: 0;
+	padding: 0;
+	order: 1;
+	align-items: center;
+	width: auto;
+}
+
+.logo {
+	width: auto;
+	height: auto;
+	padding: 0 0 0 20px;
+	position: relative;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	order: 1;
+	margin: 0;
+}
+
+.logo img {
+	width: 205px;
+	height: auto;
+	animation: logoAnimation 10s linear infinite;
+	transform-origin: center;
+	perspective: 1000px;
+	cursor: pointer;
+}
+
+/* Clase para rotación rápida */
+.logo img.spin {
+	animation: logoSpin 0.35s linear !important;
+}
+
+/* Clase para efecto 3D */
+.logo img.flip3d {
+	animation: logo3D 0.7s linear !important;
+}
+
+/* Animación automática: rotación (5s) + efecto 3D (5s) */
+@keyframes logoAnimation {
+	/* Primeros 5 segundos (0-50%): rotación rápida */
+	0% {
+		transform: rotateZ(0deg);
+	}
+	2.5% {
+		transform: rotateZ(360deg);
+	}
+	50% {
+		transform: rotateZ(360deg);
+	}
+
+	/* Siguientes 5 segundos (50-100%): efecto 3D */
+	50.1% {
+		transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+	}
+	62.5% {
+		transform: perspective(1000px) rotateY(-30deg) rotateX(0deg);
+	}
+	75% {
+		transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+	}
+	87.5% {
+		transform: perspective(1000px) rotateY(30deg) rotateX(0deg);
+	}
+	100% {
+		transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+	}
+}
+
+/* Animación de rotación rápida */
+@keyframes logoSpin {
+	0% {
+		transform: rotateZ(0deg);
+	}
+	100% {
+		transform: rotateZ(360deg);
+	}
+}
+
+/* Animación de efecto 3D */
+@keyframes logo3D {
+	0% {
+		transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+	}
+	25% {
+		transform: perspective(1000px) rotateY(-30deg) rotateX(0deg);
+	}
+	50% {
+		transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+	}
+	75% {
+		transform: perspective(1000px) rotateY(30deg) rotateX(0deg);
+	}
+	100% {
+		transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+	}
+}
+
+/* Info container - mostrar en navbar (PC) */
 .player-info-container {
+	display: flex;
+	flex-direction: row;
+	gap: 30px;
+	align-items: center;
+	order: 99;
+	flex-wrap: nowrap;
+	padding: 0;
+	width: auto;
+	background-color: transparent;
+	margin-left: auto;
+	margin-right: 0;
+}
+
+/* Info container mobile - oculto por defecto */
+.player-info-container-mobile {
 	display: none;
 }
 
-/* En desktop: mostrar info en la navbar */
-@media screen and (min-width: 769px) {
-	.player-info-container {
-		display: flex !important;
-		order: 50;
-		gap: 15px;
+/* En móvil: mostrar info entre logo y hamburguesa, ocultar info de navbar */
+@media screen and (max-width: 768px) {
+	.top {
+		display: flex;
+		flex-wrap: nowrap;
+		width: 100%;
+		align-items: center;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+	}
+
+	.logo-info-wrapper {
+		order: 1;
+		display: flex;
 		flex-direction: row;
+		width: auto;
+		gap: 10px;
+		align-items: center;
+		padding: 0;
+		flex: 0 0 auto;
+		position: relative;
+	}
+
+	.logo {
+		order: 1;
+		flex: 0 0 auto;
+		padding: 0 0 0 10px;
+		margin: 0;
+		z-index: 10;
+	}
+
+	.player-info-container {
+		display: none !important;
+	}
+
+	.player-info-container-mobile {
+		display: flex !important;
+		order: 2;
+		flex-direction: row;
+		gap: 15px;
 		align-items: center;
 		flex-wrap: nowrap;
 		padding: 0;
 		width: auto;
 		background-color: transparent;
-		margin-left: auto;
-		margin-right: auto;
-	}
-
-	.main-player {
-		order: 100;
 		margin-left: 0;
-		margin-right: 0;
-		padding: 0;
-		padding-right: 10px;
+		margin-right: 10px;
+		position: relative;
+		flex: 0 0 auto;
+		z-index: 5;
 	}
 
-	.main-player audio {
-		margin-right: 0;
-		padding: 0;
+	.player-info-container-mobile .player-info {
+		color: #ffffff !important;
+		font-size: 0.8rem !important;
+		white-space: nowrap;
+	}
+
+	.player-info-container-mobile .player-label {
+		color: #ffffff !important;
+		font-size: 0.8rem !important;
+	}
+
+	#title-mobile,
+	#listeners-mobile {
+		color: #ffffff !important;
+		font-size: 0.8rem !important;
+	}
+
+	.hamburger {
+		order: 3;
+		margin-left: auto;
+		position: relative;
+		flex: 0 0 auto;
+		z-index: 20;
 	}
 }
 .hamburger {
@@ -277,26 +445,6 @@ body {
 	text-align: center;
 }
 
-.logo {
-	width: auto;
-	height: auto;
-	padding: 0 0 0 20px;
-	position: relative;
-	flex-shrink: 0;
-	display: flex;
-	align-items: center;
-	order: 1;
-	margin: 0;
-}
-
-.logo img {
-	width: 205px;
-	height: auto;
-	animation: none;
-	transform-origin: center;
-	perspective: 1000px;
-	cursor: pointer;
-}
 
 
 /* Clase para rotación rápida */

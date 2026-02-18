@@ -64,6 +64,8 @@ function myData(Data) {
 
   document.getElementById("title").textContent = title;
   document.getElementById("listeners").textContent = listeners;
+  document.getElementById("title-mobile").textContent = title;
+  document.getElementById("listeners-mobile").textContent = listeners;
 }
 
 const contentLoader = {
@@ -183,32 +185,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
-
-  // Logo animation toggle on mouse hover
-  let isSpinAnimation = true;
-  const logoImg = document.querySelector('.logo img');
-
-  if (logoImg) {
-    logoImg.addEventListener('mouseenter', function() {
-      // Remover clases anteriores
-      logoImg.classList.remove('spin', 'flip3d');
-
-      // Aplicar la animación correspondiente
-      if (isSpinAnimation) {
-        logoImg.classList.add('spin');
-      } else {
-        logoImg.classList.add('flip3d');
-      }
-
-      // Alternar para la próxima vez
-      isSpinAnimation = !isSpinAnimation;
-    });
-
-    // Limpiar clases cuando termina la animación
-    logoImg.addEventListener('animationend', function() {
-      logoImg.classList.remove('spin', 'flip3d');
-    });
-  }
 });
 
 function navigate(route) {
@@ -241,6 +217,16 @@ function Copy() {
 	<div class="logo-info-wrapper">
 		<div class="logo">
 			<a href="#inicio"><img src="img/logoradioplano.png" alt=""></a>
+		</div>
+		<div class="player-info-container-mobile">
+			<div class="player-info">
+				<strong class="player-label">Suena ahora:</strong>
+				<span id="title-mobile"></span>
+			</div>
+			<div class="player-info">
+				<strong class="player-label">Oyentes:</strong>
+				<span id="listeners-mobile"></span>
+			</div>
 		</div>
 	</div>
 
