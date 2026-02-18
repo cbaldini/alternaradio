@@ -71,6 +71,11 @@ function myData(Data) {
   if (title) {
     document.title = title + ' | Alterna Radio FM 88.1 MHZ';
   }
+
+  // Recalcular marquee en móvil si existe
+  if (window.__updateMobileInfoMarquee) {
+    setTimeout(window.__updateMobileInfoMarquee, 0);
+  }
 }
 
 const contentLoader = {
@@ -214,6 +219,39 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
+
+  function updateMobileInfoMarquee() {
+    if (!window.matchMedia || !window.matchMedia('(max-width: 768px)').matches) return;
+
+    var infos = document.querySelectorAll('.player-info-container-mobile .player-info');
+    infos.forEach(function(info) {
+      var span = info.querySelector('span');
+      if (!span) return;
+
+      // Reset
+      info.classList.remove('is-overflow');
+      info.style.removeProperty('--overflow');
+      span.style.transform = '';
+
+      // Medición
+      var overflow = span.scrollWidth - info.clientWidth;
+      if (overflow > 10) {
+        info.classList.add('is-overflow');
+        info.style.setProperty('--overflow', overflow + 'px');
+      }
+    });
+  }
+
+  // Recalcular cuando se cambie el tamaño o se actualice el texto
+  window.addEventListener('resize', function() {
+    setTimeout(updateMobileInfoMarquee, 50);
+  });
+
+  // Exponer para myData()
+  window.__updateMobileInfoMarquee = updateMobileInfoMarquee;
+
+  // Primer cálculo
+  setTimeout(updateMobileInfoMarquee, 700);
 });
 
 function navigate(route) {

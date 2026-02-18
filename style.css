@@ -306,6 +306,25 @@ body {
 	}
 
 	.player-info-container-mobile .player-info {
+		overflow: hidden;
+		max-width: 100%;
+	}
+
+	.player-info-container-mobile .player-info span {
+		display: inline-block;
+		will-change: transform;
+	}
+
+	.player-info-container-mobile .player-info.is-overflow span {
+		animation: mobileInfoScroll 10s ease-in-out infinite alternate;
+	}
+
+	@keyframes mobileInfoScroll {
+		from { transform: translateX(0); }
+		to { transform: translateX(calc(-1 * var(--overflow, 0px))); }
+	}
+
+	.player-info-container-mobile .player-info {
 		color: #ffffff !important;
 		font-size: 0.8rem !important;
 		white-space: nowrap;
@@ -759,12 +778,31 @@ iframe {
 	.dropdown {
 		float: none;
 		width: 100%;
+		margin: 0;
 	}
 
+	/* Igualar Programas a los links del navbar (sin duplicados) */
 	.dropdown .dropbtn {
-		padding: 12px 16px;
+		-webkit-appearance: none;
+		appearance: none;
+		-webkit-tap-highlight-color: transparent;
+
+		border: 0;
+		border-radius: 0;
+		background: none;
+
+		display: block;
 		width: 100%;
+		padding: 12px 16px;
 		text-align: left;
+		border-bottom: 1px solid #555;
+
+		color: white;
+		font-size: 16px;
+		font-family: Arial, sans-serif;
+		line-height: normal;
+		margin: 0;
+		cursor: pointer;
 	}
 
 	.dropdown-content {
@@ -953,6 +991,20 @@ iframe {
 	.navbar a {
 		padding: 10px 12px;
 		font-size: 14px;
+	}
+
+	/* En pantallas chicas, Programas igual que .navbar a */
+	.dropdown .dropbtn {
+		-webkit-appearance: none;
+		appearance: none;
+		border: 0;
+		background: none;
+		padding: 10px 12px;
+		font-size: 14px;
+		font-family: Arial, sans-serif;
+		text-align: left;
+		width: 100%;
+		margin: 0;
 	}
 
 	p {
