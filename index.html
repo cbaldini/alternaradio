@@ -183,6 +183,32 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
+
+  // Logo animation toggle on mouse hover
+  let isSpinAnimation = true;
+  const logoImg = document.querySelector('.logo img');
+
+  if (logoImg) {
+    logoImg.addEventListener('mouseenter', function() {
+      // Remover clases anteriores
+      logoImg.classList.remove('spin', 'flip3d');
+
+      // Aplicar la animación correspondiente
+      if (isSpinAnimation) {
+        logoImg.classList.add('spin');
+      } else {
+        logoImg.classList.add('flip3d');
+      }
+
+      // Alternar para la próxima vez
+      isSpinAnimation = !isSpinAnimation;
+    });
+
+    // Limpiar clases cuando termina la animación
+    logoImg.addEventListener('animationend', function() {
+      logoImg.classList.remove('spin', 'flip3d');
+    });
+  }
 });
 
 function navigate(route) {
@@ -216,16 +242,6 @@ function Copy() {
 		<div class="logo">
 			<a href="#inicio"><img src="img/logoradioplano.png" alt=""></a>
 		</div>
-		<div class="player-info-container">
-			<div class="player-info">
-				<strong class="player-label">Suena ahora:</strong>
-				<span id="title"></span>
-			</div>
-			<div class="player-info">
-				<strong class="player-label">Oyentes:</strong>
-				<span id="listeners"></span>
-			</div>
-		</div>
 	</div>
 
 	<button class="hamburger" id="hamburger-btn">
@@ -248,6 +264,18 @@ function Copy() {
 	      <a href="#veo">Voz en Off</a>
 	    </div>
 	  </div>
+
+	  <div class="player-info-container">
+	  	<div class="player-info">
+	  		<strong class="player-label">Suena ahora:</strong>
+	  		<span id="title"></span>
+	  	</div>
+	  	<div class="player-info">
+	  		<strong class="player-label">Oyentes:</strong>
+	  		<span id="listeners"></span>
+	  	</div>
+	  </div>
+
         <div class="main-player">
             <audio id="main-audio" controls autoplay>
                 <source id="audio-source" src="https://alternaradio.ar:8443/play" type="audio/mpeg">

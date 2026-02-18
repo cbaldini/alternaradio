@@ -96,6 +96,8 @@ body {
   flex-basis: 100%;
   order: 3;
   flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
 }
 
 .top {
@@ -114,11 +116,11 @@ body {
 	min-height: auto;
 }
 
-/* Wrapper para logo e información */
+/* Wrapper para logo */
 .logo-info-wrapper {
 	display: flex;
 	flex-direction: row;
-	gap: 5px;
+	gap: 0;
 	padding: 0;
 	order: 1;
 	flex-wrap: wrap;
@@ -126,7 +128,40 @@ body {
 	width: auto;
 }
 
-/* Hamburger menu styles */
+/* Info container oculto por defecto (móvil) */
+.player-info-container {
+	display: none;
+}
+
+/* En desktop: mostrar info en la navbar */
+@media screen and (min-width: 769px) {
+	.player-info-container {
+		display: flex !important;
+		order: 50;
+		gap: 15px;
+		flex-direction: row;
+		align-items: center;
+		flex-wrap: nowrap;
+		padding: 0;
+		width: auto;
+		background-color: transparent;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.main-player {
+		order: 100;
+		margin-left: 0;
+		margin-right: 0;
+		padding: 0;
+		padding-right: 10px;
+	}
+
+	.main-player audio {
+		margin-right: 0;
+		padding: 0;
+	}
+}
 .hamburger {
 	display: none;
 	flex-direction: column;
@@ -257,9 +292,50 @@ body {
 .logo img {
 	width: 205px;
 	height: auto;
-	animation: logoAnimation 28s linear infinite;
+	animation: none;
 	transform-origin: center;
 	perspective: 1000px;
+	cursor: pointer;
+}
+
+
+/* Clase para rotación rápida */
+.logo img.spin {
+	animation: logoSpin 0.35s linear !important;
+}
+
+/* Clase para efecto 3D */
+.logo img.flip3d {
+	animation: logo3D 0.7s linear !important;
+}
+
+/* Animación de rotación rápida */
+@keyframes logoSpin {
+	0% {
+		transform: rotateZ(0deg);
+	}
+	100% {
+		transform: rotateZ(360deg);
+	}
+}
+
+/* Animación de efecto 3D */
+@keyframes logo3D {
+	0% {
+		transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+	}
+	25% {
+		transform: perspective(1000px) rotateY(-30deg) rotateX(0deg);
+	}
+	50% {
+		transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+	}
+	75% {
+		transform: perspective(1000px) rotateY(30deg) rotateX(0deg);
+	}
+	100% {
+		transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+	}
 }
 
 /* Animación cuádruple: rotación + espera + efecto 3D + espera */
@@ -306,16 +382,7 @@ body {
 	}
 }
 
-.player-info-container {
-	display: flex;
-	flex-direction: row;
-	gap: 30px;
-	align-items: center;
-	order: 2;
-	flex-wrap: wrap;
-	padding: 0;
-	width: auto;
-}
+
 
 .player-info {
 	padding: 0;
@@ -433,6 +500,10 @@ iframe {
 		padding-top: 0;
 	}
 
+	.player-info-container {
+		display: none !important;
+	}
+
 	.top {
 		flex-direction: row;
 		flex-wrap: wrap;
@@ -471,10 +542,11 @@ iframe {
 		width: 100%;
 		flex-wrap: wrap;
 		order: 2;
-		padding: 0;
+		padding: 5px 10px;
 		align-items: center;
 		margin-top: 0;
-		margin-left: 10px;
+		margin-left: 0;
+		background-color: #333;
 	}
 
 	.player-info {
@@ -765,24 +837,45 @@ iframe {
 	}
 }
 
-/* Player styling - Black background with white controls */
+/* Main player container - positioned at right edge */
+.main-player {
+	padding: 0;
+	position: relative;
+	flex: 0 0 auto;
+	order: 100;
+	margin-left: auto;
+	margin-right: 0;
+	display: flex;
+	align-items: center;
+}
+
+/* Player styling - Black background with white controls for Chrome */
 audio {
+	background-color: #000000 !important;
 	color: #ffffff !important;
 	width: 200px !important;
 	height: 20px !important;
-	background-color: #000000 !important;
 	border-radius: 8px !important;
+	accent-color: #ffffff !important;
 }
 
 /* Specific styling for main player audio */
 .main-player audio {
-	color: #ffffff !important;
 	background-color: #000000 !important;
-	border-radius: 8px !important;
+	color: #ffffff !important;
+	accent-color: #ffffff !important;
+	width: 200px !important;
+	height: 20px !important;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
 #main-audio {
-	color: #ffffff !important;
 	background-color: #000000 !important;
-	border-radius: 8px !important;
+	color: #ffffff !important;
+	accent-color: #ffffff !important;
+	width: 200px !important;
+	height: 20px !important;
+	margin: 0 !important;
+	padding: 0 !important;
 }
