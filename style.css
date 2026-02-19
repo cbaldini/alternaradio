@@ -1,4 +1,219 @@
 /* Alterna Radio - Version 2.0.0 - MVC Architecture */
+
+/* Centrar todo el contenido */
+body {
+	text-align: center;
+	background-color: #272727;
+}
+
+#content {
+	text-align: center;
+	background-color: #000000;
+}
+
+/* Contenedor principal centrado */
+.container {
+	text-align: center;
+	margin: 0 auto;
+}
+
+/* Páginas de programas centradas */
+.program-page {
+	text-align: center;
+}
+
+/* Flyers y elementos de programa centrados */
+.flyer {
+	text-align: center;
+	margin: 0 auto;
+}
+
+.program-select-container {
+	text-align: center;
+}
+
+.program-links {
+	text-align: center;
+}
+
+/* Asegurar que las imágenes estén centradas */
+img {
+	display: inline-block;
+}
+
+/* Centrar elementos de audio */
+audio {
+	display: block;
+	margin: 20px auto;
+}
+
+/* Centrar botones */
+input[type="button"] {
+	margin: 5px auto;
+	display: inline-block;
+}
+
+/* Centrar textarea */
+textarea {
+	display: block;
+	margin: 10px auto;
+	text-align: center;
+}
+
+/* Centrar párrafos y headings */
+p, h1, h2, h3, h4, h5, h6 {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Centrar enlaces */
+a {
+	display: inline-block;
+}
+
+/* Centrar divs de flyer y programa */
+.flyer, .program-links, .program-select-container {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* Estilos específicos para página de contacto */
+.contacto-container {
+	text-align: center !important;
+	padding: 40px 20px !important;
+	display: block !important;
+	background-color: #000000 !important;
+	min-height: 400px !important;
+}
+
+.contacto-container h2 {
+	color: white !important;
+	display: block !important;
+	width: 100% !important;
+	margin: 0 auto 30px auto !important;
+	text-align: center !important;
+}
+
+.contacto-container p {
+	color: white !important;
+	display: block !important;
+	width: 100% !important;
+	margin: 0 auto 30px auto !important;
+	text-align: center !important;
+}
+
+.contacto-icons {
+	display: block !important;
+	width: 100% !important;
+	margin: 20px auto !important;
+	text-align: center !important;
+}
+
+.contacto-icons a {
+	display: inline-block !important;
+	margin: 0 10px !important;
+}
+
+.contacto-icons img {
+	display: inline-block !important;
+}
+
+/* Estilos para páginas de emisiones individuales */
+.episode-page {
+	background-color: #000000;
+	text-align: center;
+	padding: 40px 20px;
+	min-height: 100vh;
+}
+
+.episode-page h2 {
+	color: white;
+	margin-bottom: 30px;
+}
+
+.episode-page audio {
+	display: block;
+	margin: 30px auto;
+	width: 90%;
+	max-width: 600px;
+	background-color: #1a1a1a;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+/* Estilos para controles de audio - fondo oscuro y controles claros */
+audio {
+	background-color: #1a1a1a;
+	border-radius: 10px;
+	filter: invert(0);
+}
+
+audio::-webkit-media-controls-panel {
+	background-color: #1a1a1a;
+}
+
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-pause-button {
+	background-color: #ffffff;
+	border-radius: 50%;
+}
+
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display {
+	color: #ffffff;
+}
+
+audio::-webkit-media-controls-timeline {
+	background-color: #444;
+	border-radius: 25px;
+}
+
+audio::-webkit-media-controls-volume-slider {
+	background-color: #444;
+	border-radius: 25px;
+}
+
+.episode-buttons {
+	margin: 20px auto;
+	text-align: center;
+}
+
+.episode-buttons input[type="button"],
+.episode-buttons a {
+	margin: 5px 10px;
+}
+
+#copyMessage {
+	display: none;
+	color: #4CAF50;
+	margin: 20px auto;
+	padding: 15px;
+	background-color: rgba(76, 175, 80, 0.1);
+	border: 1px solid #4CAF50;
+	border-radius: 5px;
+	max-width: 90%;
+	word-wrap: break-word;
+	text-align: center;
+}
+
+#copyMessage strong {
+	color: #66BB6A;
+}
+
+.episode-image {
+	text-align: center;
+	margin: 30px auto;
+}
+
+.episode-image img {
+	display: block;
+	margin: 0 auto;
+	max-width: 100%;
+	height: auto;
+}
+
+/* Estilos base */
 * {
 	box-sizing: border-box;
 }
@@ -779,6 +994,7 @@ iframe {
 	padding: 0;
 	margin: 0 0 20px 0;
 	overflow-y: auto;
+	background-color: #000000;
 }
 
 /* Main: fondo pegado a la barra */

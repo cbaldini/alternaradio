@@ -9,7 +9,7 @@ const AudioManager = {
   // Inicializar el gestor
   init: function() {
     this.mainAudio = document.getElementById('main-audio');
-    console.log('AudioManager inicializado');
+    console.log('AudioManager inicializado, mainAudio:', this.mainAudio);
 
     // Bind the handler to preserve 'this' context
     const self = this;
@@ -20,10 +20,20 @@ const AudioManager = {
 
     // Si se reproduce cualquier otro audio, pausar la radio en vivo
     document.addEventListener('play', function(e) {
+      console.log('AudioManager: Play event detectado en:', e.target);
       if (e.target && e.target.tagName === 'AUDIO' && e.target.id !== 'main-audio') {
+        console.log('AudioManager: Audio de programa detectado, pausando radio principal');
         self.pauseMainAudio();
       }
     }, true);
+
+    // También monitorear con un segundo método (sin capture)
+    document.addEventListener('play', function(e) {
+      if (e.target && e.target.tagName === 'AUDIO' && e.target.id !== 'main-audio') {
+        console.log('AudioManager: Audio de programa detectado (bubble), pausando radio principal');
+        self.pauseMainAudio();
+      }
+    }, false);
   },
 
   // Pausar el audio principal (radio en vivo)
@@ -123,3 +133,5 @@ if (typeof window !== 'undefined') {
   });
 }
 
+// Exponer AudioManager globalmente
+window.AudioManager = AudioManager;

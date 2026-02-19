@@ -13,30 +13,66 @@
         (function() {
             window.Copy = function() {
                 var url = CONFIG.domain + "#hr/hr15";
-                var textarea = document.getElementById("urlCopied");
-                if (textarea) {
+                var messageDiv = document.getElementById("copyMessage");
+
+                // Copiar al portapapeles
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url)
+                        .then(function() {
+                            console.log("Clipboard API: copiado");
+                            if (messageDiv) {
+                                messageDiv.innerHTML = '¡Vínculo <strong>' + url + '</strong> copiado al portapapeles!';
+                                messageDiv.style.display = 'block';
+                            }
+                        })
+                        .catch(function(err) {
+                            console.error("Clipboard API error:", err);
+                        });
+                } else {
+                    // Fallback para navegadores antiguos
+                    var textarea = document.createElement('textarea');
                     textarea.value = url;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
                     textarea.focus();
                     textarea.select();
 
                     try {
                         var success = document.execCommand('copy');
-                        if (success) {
-                            console.log("Copiado exitosamente:", url);
+                        if (success && messageDiv) {
+                            messageDiv.innerHTML = '¡Vínculo <strong>' + url + '</strong> copiado al portapapeles!';
+                            messageDiv.style.display = 'block';
                         }
                     } catch(err) {
                         console.error("execCommand error:", err);
                     }
 
-                    if (navigator.clipboard && navigator.clipboard.writeText) {
-                        navigator.clipboard.writeText(url)
-                            .then(function() {
-                                console.log("Clipboard API: copiado");
-                            })
-                            .catch(function(err) {
-                                console.error("Clipboard API error:", err);
-                            });
-                    }
+                    document.body.removeChild(textarea);
+                }
+            };
+
+            window.Share = function() {
+                var url = CONFIG.domain + "#hr/hr15";
+                var title = "Humana Resistencia - Programa 15";
+                var text = "Escuchá este programa de Humana Resistencia en Alterna Radio";
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: title,
+                        text: text,
+                        url: url
+                    })
+                    .then(function() {
+                        console.log('Compartido exitosamente');
+                    })
+                    .catch(function(error) {
+                        console.log('Error al compartir:', error);
+                    });
+                } else {
+                    // Fallback: copiar al portapapeles
+                    Copy();
+                    alert('Función de compartir no disponible. El vínculo ha sido copiado al portapapeles.');
                 }
             };
         })();
@@ -58,23 +94,28 @@
         }, true);
     </script>
 </head>
-<body style="background-color:#272727; text-align: center;">
+<body class="episode-page">
 
 <h2>Humana Resistencia - Programa 15</h2>
-<p>31-05-2024</p>
+<p style="color: white;">31-05-2024</p>
 
-    <audio controls autoplay>
-      <source src="../../archivo/humana_resistencia/31-5-24.ogg" type="audio/ogg">
-    </audio>
+<audio controls autoplay>
+  <source src="../../archivo/humana_resistencia/31-5-24.ogg" type="audio/ogg">
+</audio>
 
-<div class="flyer">
-<img src="../../img/hr.png" width="400" height="600" alt="">
+<div class="episode-buttons">
+  <input type="button" value="Copiar vínculo" onclick="Copy();" />
+  <a href="../../archivo/humana_resistencia/31-5-24.ogg"><input type="button" value="Descargar"></a>
+  <input type="button" value="Compartir" onclick="Share();" />
 </div>
 
-<input type="button" value="Copiar vínculo" onclick="Copy();" />
-<a href="../../archivo/humana_resistencia/31-5-24.ogg"><input type="button" value="Descargar"></a>
-<br />
-<p>Vínculo: <textarea id="urlCopied" rows="1" cols="70"></textarea></p>
+<div id="copyMessage" style="display: none; color: #4CAF50; margin: 20px auto; padding: 15px; background-color: rgba(76, 175, 80, 0.1); border-radius: 5px; max-width: 90%; word-wrap: break-word;"></div>
+
+<div class="episode-image">
+  <img src="../../img/hr.png" width="400" height="600" alt="Humana Resistencia">
+</div>
+
+<script src="../../js/audio-manager.js"></script>
 </body>
 </html>
 

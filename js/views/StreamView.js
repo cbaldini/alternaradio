@@ -18,20 +18,12 @@ const StreamView = {
     this.elements.titleMobile = document.getElementById('title-mobile');
     this.elements.listeners = document.getElementById('listeners');
     this.elements.listenersMobile = document.getElementById('listeners-mobile');
-
-    console.log('StreamView.init() - Elementos encontrados:', {
-      title: !!this.elements.title,
-      titleMobile: !!this.elements.titleMobile,
-      listeners: !!this.elements.listeners,
-      listenersMobile: !!this.elements.listenersMobile
-    });
   },
 
   /**
    * Actualiza la vista con los nuevos datos
    */
   render: function(data) {
-    console.log('StreamView.render() - Datos recibidos:', data);
 
     if (this.elements.title) {
       this.elements.title.textContent = data.title;

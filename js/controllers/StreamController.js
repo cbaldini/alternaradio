@@ -24,12 +24,8 @@ const StreamController = {
       return;
     }
 
-    console.log('StreamController.loadData() - Cargando desde:', CONFIG.statusUrl);
-
     Helpers.loadJSON(CONFIG.statusUrl, (data) => {
-      console.log('StreamController.loadData() - Datos recibidos del servidor:', data);
       const streamData = StreamModel.updateData(data);
-      console.log('StreamController.loadData() - Datos procesados:', streamData);
       StreamView.render(streamData);
     });
   },

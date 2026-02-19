@@ -4,42 +4,88 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- CSS  -->
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="../../style.css" rel="stylesheet" type="text/css" />
 <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
 <title>Alterna Radio FM 88.1 MHZ</title>
-<link rel="icon" type="image/x-icon" href="favicon.png">
-        <script type="text/javascript">
+<link rel="icon" type="image/x-icon" href="../../favicon.png">
+    <script src="../../js/config.js"></script>
+    <script type="text/javascript">
         (function() {
             window.Copy = function() {
                 var url = CONFIG.domain + "#ies/ies88";
-                var textarea = document.getElementById("urlCopied");
-                if (textarea) {
-                    textarea.value = url;
-                    textarea.focus();
-                    textarea.select();
+                var messageDiv = document.getElementById("copyMessage");
 
-                    // Intentar copiar con execCommand (compatible)
-                    try {
-                        var success = document.execCommand('copy');
-                        if (success) {
-                            console.log("Copiado exitosamente:", url);
-                        } else {
-                            console.log("execCommand devolvió false");
-                        }
-                    } catch(err) {
-                        console.error("execCommand error:", err);
-                    }
+                console.log("Copy function called, URL:", url);
+                console.log("Message div found:", messageDiv);
 
-                    // También intentar con Clipboard API
-                    if (navigator.clipboard && navigator.clipboard.writeText) {
-                        navigator.clipboard.writeText(url)
-                            .then(function() {
-                                console.log("Clipboard API: copiado");
-                            })
-                            .catch(function(err) {
-                                console.error("Clipboard API error:", err);
-                            });
+                // Copiar al portapapeles
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(url)
+                        .then(function() {
+                            console.log("Clipboard API: copiado exitosamente");
+                            if (messageDiv) {
+                                messageDiv.innerHTML = '¡Vínculo <strong>' + url + '</strong> copiado al portapapeles!';
+                                messageDiv.style.display = 'block';
+                                console.log("Mensaje mostrado");
+                            } else {
+                                console.error("No se encontró el div copyMessage");
+                            }
+                        })
+                        .catch(function(err) {
+                            console.error("Clipboard API error:", err);
+                            fallbackCopy(url, messageDiv);
+                        });
+                } else {
+                    console.log("Usando fallback de copia");
+                    fallbackCopy(url, messageDiv);
+                }
+            };
+
+            function fallbackCopy(url, messageDiv) {
+                // Fallback para navegadores antiguos
+                var textarea = document.createElement('textarea');
+                textarea.value = url;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.focus();
+                textarea.select();
+
+                try {
+                    var success = document.execCommand('copy');
+                    if (success && messageDiv) {
+                        messageDiv.innerHTML = '¡Vínculo <strong>' + url + '</strong> copiado al portapapeles!';
+                        messageDiv.style.display = 'block';
+                        console.log("Copiado con execCommand");
                     }
+                } catch(err) {
+                    console.error("execCommand error:", err);
+                }
+
+                document.body.removeChild(textarea);
+            }
+
+            window.Share = function() {
+                var url = CONFIG.domain + "#ies/ies88";
+                var title = "Informe Económico Semanal 88 - Carnaval de reformas";
+                var text = "Escuchá este programa de Informe Económico Semanal en Alterna Radio";
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: title,
+                        text: text,
+                        url: url
+                    })
+                    .then(function() {
+                        console.log('Compartido exitosamente');
+                    })
+                    .catch(function(error) {
+                        console.log('Error al compartir:', error);
+                    });
+                } else {
+                    // Fallback: copiar al portapapeles
+                    Copy();
+                    alert('Función de compartir no disponible. El vínculo ha sido copiado al portapapeles.');
                 }
             };
         })();
@@ -60,20 +106,26 @@
         }, true);
     </script>
 </head>
-<body style="background-color:#287877; text-align: center;">
+<body class="episode-page">
 
 <h2>Informe Económico Semanal 88 - "Carnaval de reformas"</h2>
 
-    <audio controls autoplay>
-      <source src="archivo/informe_economico_semanal/ies88.ogg" type="audio/mpeg">
-    </audio>
-            <input type="button" value="Copiar vínculo" onclick="Copy();" />
-            <a href="archivo/informe_economico_semanal/ies88.ogg"><input type="button" value="Descargar"></a>
-            <br />
-            <p>Vínculo: <textarea id="urlCopied" rows="1" cols="87"></textarea></p>
-<div class="flyer">
-<img src="img/ies.png" width="550" height="640" alt="">
+<audio controls autoplay>
+  <source src="../../archivo/informe_economico_semanal/ies88.ogg" type="audio/mpeg">
+</audio>
+
+<div class="episode-buttons">
+  <input type="button" value="Copiar vínculo" onclick="Copy();" />
+  <a href="../../archivo/informe_economico_semanal/ies88.ogg"><input type="button" value="Descargar"></a>
+  <input type="button" value="Compartir" onclick="Share();" />
 </div>
-<script src="../program-select.js"></script>
+
+<div id="copyMessage" style="display: none; color: #4CAF50; margin: 20px auto; padding: 15px; background-color: rgba(76, 175, 80, 0.1); border: 2px solid #4CAF50; border-radius: 8px; max-width: 90%; word-wrap: break-word; text-align: center; font-size: 16px;"></div>
+
+<div class="episode-image">
+  <img src="../../img/ies.png" width="400" height="600" alt="Informe Económico Semanal">
+</div>
+
+<script src="../../js/program-select.js"></script>
 </body>
 </html>
