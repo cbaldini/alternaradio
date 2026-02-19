@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Test Fecha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #272727;
+            color: white;
+        }
+        .test-box {
+            background: #333;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test de Fecha y Hora</h1>
+
+    <div class="test-box">
+        <h2>Fecha JavaScript nativa:</h2>
+        <div id="native-date"></div>
+    </div>
+
+    <div class="test-box">
+        <h2>Usando DateModel:</h2>
+        <div>Fecha: <span id="date-model"></span></div>
+        <div>Hora: <span id="time-model"></span></div>
+    </div>
+
+    <div class="test-box">
+        <h2>Elementos del DOM:</h2>
+        <div>id-date: <span class="date-box" id="id-date">-- de --</span></div>
+        <div>id-time: <span class="time-box" id="id-time">--:--</span></div>
+    </div>
+
+    <div class="test-box">
+        <h2>Console Log:</h2>
+        <div id="console-log" style="font-family: monospace; font-size: 12px;"></div>
+    </div>
+
+    <script src="js/models/DateModel.js?v=2.0.1"></script>
+    <script src="js/views/DateView.js?v=2.0.1"></script>
+    <script src="js/controllers/DateController.js?v=2.0.1"></script>
+
+    <script>
+        // Capturar console.log
+        const originalLog = console.log;
+        const logDiv = document.getElementById('console-log');
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            logDiv.innerHTML += args.join(' ') + '<br>';
+        };
+
+        // Test fecha nativa
+        const now = new Date();
+        document.getElementById('native-date').innerHTML = now.toString();
+
+        // Test DateModel
+        try {
+            console.log('=== INICIANDO TEST ===');
+            const dateData = DateModel.getCurrentDate();
+            document.getElementById('date-model').textContent = dateData.formattedDate;
+            document.getElementById('time-model').textContent = dateData.formattedTime;
+
+            // Test DateController
+            DateController.init();
+
+            console.log('=== TEST COMPLETADO ===');
+        } catch (error) {
+            console.log('ERROR:', error.message);
+            console.log('Stack:', error.stack);
+        }
+    </script>
+</body>
+</html>
+

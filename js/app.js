@@ -3,6 +3,9 @@
  */
 
 const App = {
+  maxRetries: 50,
+  retryCount: 0,
+
   /**
    * Verifica que todas las dependencias estén cargadas
    */
@@ -17,10 +20,11 @@ const App = {
     const missing = required.filter(dep => !window[dep]);
 
     if (missing.length > 0) {
-      console.warn('Dependencias faltantes:', missing);
+      console.warn('Dependencias faltantes (intento ' + (this.retryCount + 1) + '):', missing);
       return false;
     }
 
+    console.log('Todas las dependencias cargadas correctamente');
     return true;
   },
 
@@ -32,28 +36,38 @@ const App = {
 
     // Verificar dependencias
     if (!this.checkDependencies()) {
-      console.error('No todas las dependencias están cargadas. Reintentando...');
-      setTimeout(() => this.init(), 100);
-      return;
+      this.retryCount++;
+      if (this.retryCount < this.maxRetries) {
+        console.log('Reintentando en 100ms...');
+        setTimeout(() => this.init(), 100);
+        return;
+      } else {
+        console.error('No se pudieron cargar todas las dependencias después de ' + this.maxRetries + ' intentos');
+        return;
+      }
     }
 
     // Inicializar todos los controladores en orden
-    UIController.init();
-    AudioPlayerController.init();
-    StreamController.init();
-    WeatherController.init();
-    DateController.init();
-    ContentController.init();
+    try {
+      UIController.init();
+      AudioPlayerController.init();
+      StreamController.init();
+      WeatherController.init();
+      DateController.init();
+      ContentController.init();
 
-    // Inicializar AudioManager (gestor de audio)
-    if (window.AudioManager) {
-      AudioManager.init();
+      // Inicializar AudioManager (gestor de audio)
+      if (window.AudioManager) {
+        AudioManager.init();
+      }
+
+      // Configurar marquee móvil
+      this.setupMobileMarquee();
+
+      console.log('Alterna Radio App iniciada correctamente');
+    } catch (error) {
+      console.error('Error al inicializar la aplicación:', error);
     }
-
-    // Configurar marquee móvil
-    this.setupMobileMarquee();
-
-    console.log('Alterna Radio App iniciada correctamente');
   },
 
   /**
