@@ -190,7 +190,7 @@
     // Agregar opción placeholder
     var placeholder = document.createElement('option');
     placeholder.value = '';
-    placeholder.textContent = 'Seleccionar emisión';
+    placeholder.textContent = 'Elegir emisión';
     placeholder.disabled = true;
     placeholder.selected = true;
     select.appendChild(placeholder);

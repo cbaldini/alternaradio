@@ -70,6 +70,56 @@ const AudioManager = {
     } else {
       console.log('AudioManager: Ruta es un programa, sin acción');
     }
+  },
+
+  // Calcular overflow del texto para animación de scroll en móvil
+  checkInfoOverflow: function() {
+    const infoContainers = document.querySelectorAll('.player-info-container-mobile .player-info');
+
+    infoContainers.forEach(container => {
+      const span = container.querySelector('span');
+      if (!span) return;
+
+      const containerWidth = container.offsetWidth;
+      const spanWidth = span.scrollWidth;
+      const overflow = Math.max(0, spanWidth - containerWidth);
+
+      if (overflow > 0) {
+        container.classList.add('is-overflow');
+        container.style.setProperty('--overflow', overflow + 'px');
+      } else {
+        container.classList.remove('is-overflow');
+        container.style.removeProperty('--overflow');
+      }
+    });
   }
 };
+
+// Verificar overflow cuando la página carga y cuando cambia el tamaño
+if (typeof window !== 'undefined') {
+  window.addEventListener('load', function() {
+    AudioManager.checkInfoOverflow();
+  });
+
+  window.addEventListener('resize', function() {
+    AudioManager.checkInfoOverflow();
+  });
+
+  // También verificar cuando se actualiza la información
+  const observer = new MutationObserver(function() {
+    AudioManager.checkInfoOverflow();
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const titleMobile = document.getElementById('title-mobile');
+    const listenersMobile = document.getElementById('listeners-mobile');
+
+    if (titleMobile) {
+      observer.observe(titleMobile, { childList: true, characterData: true, subtree: true });
+    }
+    if (listenersMobile) {
+      observer.observe(listenersMobile, { childList: true, characterData: true, subtree: true });
+    }
+  });
+}
 

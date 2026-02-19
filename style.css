@@ -1,4 +1,4 @@
-/* Alterna Radio - Version 2.1.1 - Fixed Mobile Program Layout */
+/* Alterna Radio - Version 2.0.0 - MVC Architecture */
 * {
 	box-sizing: border-box;
 }
@@ -53,11 +53,11 @@ h1{
 
 h2{
 	color: whitesmoke;
-	font-family: 'Courier', monospace;
+	font-family: Verdana, monospace;
 	font-weight: bold;
 	text-decoration: none;
-	font-size: 150%;
-}
+    font-size: 85%;
+    text-transform: uppercase;}
 
 #output{
 	color: whitesmoke;
@@ -250,11 +250,64 @@ body {
 	display: none;
 }
 
+/* Weather Widget */
+.weather-widget-container {
+	display: none;
+}
+
+.weather-widget-container-desktop {
+	display: none;
+}
+
+.weather-box {
+	border-radius: 5px;
+	text-align: center;
+	font-family: arial, sans-serif;
+	font-weight: bold;
+	color: #ffffff;
+	background: rgba(51, 51, 51, 0.5);
+	font-size: 0.9rem;
+	padding: 4px 10px;
+	white-space: nowrap;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* En desktop: weather widget en el div .top a la derecha */
+@media screen and (min-width: 769px) {
+	.top {
+		align-items: center;
+	}
+
+	.logo-info-wrapper .weather-widget-container {
+		display: none !important;
+	}
+
+	.weather-widget-container-desktop {
+		display: flex !important;
+		order: 2;
+		flex: 0 0 auto;
+		padding: 0 15px;
+		align-items: center;
+		align-self: center;
+		margin-left: auto;
+		margin-right: 20px;
+		position: relative;
+	}
+
+	.player-info-container-mobile {
+		display: none !important;
+	}
+
+	.hamburger {
+		display: none !important;
+	}
+}
+
 /* En móvil: mostrar info entre logo y hamburguesa, ocultar info de navbar */
 @media screen and (max-width: 768px) {
 	.top {
 		display: flex;
-		flex-wrap: nowrap;
+		flex-wrap: wrap;
 		width: 100%;
 		align-items: center;
 		position: fixed;
@@ -262,6 +315,7 @@ body {
 		left: 0;
 		right: 0;
 		z-index: 1000;
+		background-color: #272727;
 	}
 
 	.logo-info-wrapper {
@@ -271,15 +325,16 @@ body {
 		width: auto;
 		gap: 10px;
 		align-items: center;
-		padding: 0;
-		flex: 0 0 auto;
+		padding: 5px 0 5px 10px;
+		flex: 1 1 auto;
 		position: relative;
+		min-width: 0;
 	}
 
 	.logo {
 		order: 1;
 		flex: 0 0 auto;
-		padding: 0 0 0 10px;
+		padding: 0;
 		margin: 0;
 		z-index: 10;
 	}
@@ -288,26 +343,58 @@ body {
 		display: none !important;
 	}
 
-	.player-info-container-mobile {
+	.weather-widget-container {
 		display: flex !important;
 		order: 2;
-		flex-direction: row;
-		gap: 15px;
+		flex: 0 0 auto;
+		padding: 0 10px;
+		margin-left: auto;
+		margin-right: 0;
 		align-items: center;
-		flex-wrap: nowrap;
-		padding: 0;
-		width: auto;
-		background-color: transparent;
+	}
+
+	.weather-box {
+		font-size: 0.75rem;
+		padding: 3px 8px;
+	}
+
+	.hamburger {
+		order: 2;
 		margin-left: 0;
-		margin-right: 10px;
+		margin-right: 15px;
 		position: relative;
 		flex: 0 0 auto;
+		z-index: 20;
+		align-self: center;
+		display: flex;
+		padding: 10px;
+	}
+
+	.player-info-container-mobile {
+		display: flex !important;
+		order: 3;
+		flex-direction: row;
+		gap: 10px;
+		align-items: center;
+		flex-wrap: nowrap;
+		padding: 8px 15px;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.3);
+		margin: 0;
+		position: relative;
 		z-index: 5;
+		min-width: 0;
+		overflow: hidden;
+		flex-basis: 100%;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
 	.player-info-container-mobile .player-info {
 		overflow: hidden;
 		max-width: 100%;
+		color: #ffffff !important;
+		font-size: 0.75rem !important;
+		white-space: nowrap;
 	}
 
 	.player-info-container-mobile .player-info span {
@@ -324,29 +411,26 @@ body {
 		to { transform: translateX(calc(-1 * var(--overflow, 0px))); }
 	}
 
-	.player-info-container-mobile .player-info {
-		color: #ffffff !important;
-		font-size: 0.8rem !important;
-		white-space: nowrap;
-	}
-
 	.player-info-container-mobile .player-label {
 		color: #ffffff !important;
-		font-size: 0.8rem !important;
+		font-size: 0.75rem !important;
 	}
 
 	#title-mobile,
 	#listeners-mobile {
 		color: #ffffff !important;
-		font-size: 0.8rem !important;
+		font-size: 0.75rem !important;
 	}
 
-	.hamburger {
-		order: 3;
-		margin-left: auto;
-		position: relative;
-		flex: 0 0 auto;
-		z-index: 20;
+	.navbar {
+		order: 10;
+		width: 100%;
+		flex-basis: 100%;
+		flex-direction: column;
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.3s ease-out;
+		border-top: 1px solid #555;
 	}
 }
 .hamburger {
@@ -468,6 +552,9 @@ body {
 	margin: 10px 0 15px;
 	display: flex;
 	justify-content: center;
+	width: 100%;
+	padding: 0 10px;
+	box-sizing: border-box;
 }
 
 .program-episode-select {
@@ -480,10 +567,40 @@ body {
 	font-size: 100%;
 	cursor: pointer;
 	min-width: 250px;
+	max-width: 100%;
+	box-sizing: border-box;
 }
 
 .program-episode-select:hover {
 	background-color: #333;
+}
+
+/* Ajustes para móvil */
+@media screen and (max-width: 768px) {
+	.program-select-wrapper {
+		width: 100%;
+		max-width: 100%;
+		padding: 0 15px;
+		margin: 10px 0;
+	}
+
+	.program-episode-select {
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		font-size: 14px;
+		padding: 10px 30px 10px 10px;
+		box-sizing: border-box;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.program-episode-select option {
+		font-size: 14px;
+		padding: 10px;
+		white-space: normal;
+		word-wrap: break-word;
+	}
 }
 
 .program-episode-embed {
@@ -658,9 +775,9 @@ iframe {
 }
 
 #content {
-	min-height: 100vh;
+	min-height: auto;
 	padding: 0;
-	margin: 0;
+	margin: 0 0 20px 0;
 	overflow-y: auto;
 }
 
@@ -668,6 +785,13 @@ iframe {
 .main-container {
 	padding-top: 0;
 	margin: 0;
+}
+
+/* Footer del sitio - Reducir espacio entre content y footer */
+.site-footer {
+	text-align: center;
+	margin-top: 0;
+	padding-top: 0;
 }
 
 /* Main: imágenes con el mismo alto */
@@ -801,20 +925,10 @@ iframe {
 		max-width: 250px;
 	}
 
-	/* Show hamburger menu on mobile */
-	.hamburger {
-		display: flex;
-		width: auto;
-		order: 1;
-		margin-left: auto;
-		padding: 10px 15px;
-		flex: 0 0 auto;
-		align-self: center;
-	}
 
 	/* Hide navbar by default on mobile */
 	.navbar {
-		order: 3;
+		order: 10;
 		width: 100%;
 		flex-basis: 100%;
 		flex-direction: column;
@@ -958,19 +1072,20 @@ iframe {
 
 	.top {
 		flex-direction: row;
-		align-items: flex-start;
+		align-items: center;
 		flex-wrap: wrap;
 	}
 
 	.logo-info-wrapper {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		gap: 5px;
 		order: 1;
-		padding: 8px 0 8px 10px;
-		align-items: flex-start;
-		flex: 1;
-		width: 100%;
+		padding: 5px 0 5px 10px;
+		align-items: center;
+		flex: 1 1 auto;
+		width: auto;
+		min-width: 0;
 	}
 
 	.logo {
@@ -990,46 +1105,78 @@ iframe {
 	}
 
 	.player-info-container {
-		display: flex;
-		flex-direction: row;
-		gap: 10px;
-		width: 100%;
-		flex-wrap: wrap;
-		justify-content: flex-start;
+		display: none !important;
+	}
+
+	.weather-widget-container {
+		display: flex !important;
 		order: 2;
-		align-items: center;
-		margin-top: 0;
-		margin-left: 10px;
-		padding: 0;
-	}
-
-	.player-info {
-		font-size: 0.75rem;
-		white-space: nowrap;
-		font-family: arial, sans-serif;
 		flex: 0 0 auto;
+		padding: 0 8px;
+		margin-left: auto;
+		margin-right: 0;
+		align-items: center;
 	}
 
-	.player-info .player-label {
-		font-size: 0.75rem;
-		white-space: nowrap;
-		font-family: arial, sans-serif;
-	}
-
-	.player-info #title,
-	.player-info #listeners {
-		font-size: 0.75rem;
-		font-family: arial, sans-serif;
+	.weather-box {
+		font-size: 0.65rem;
+		padding: 2px 6px;
 	}
 
 	.hamburger {
 		width: auto;
-		order: 1;
-		margin-left: auto;
+		order: 2;
+		margin-left: 0;
+		margin-right: 10px;
 		padding: 8px;
 		flex: 0 0 auto;
 		display: flex;
 		align-self: center;
+	}
+
+	.player-info-container-mobile {
+		display: flex !important;
+		order: 3;
+		flex-direction: row;
+		gap: 8px;
+		align-items: center;
+		flex-wrap: nowrap;
+		padding: 6px 10px;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.3);
+		margin: 0;
+		flex-basis: 100%;
+		min-width: 0;
+		overflow: hidden;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.player-info {
+		font-size: 0.7rem;
+		white-space: nowrap;
+		font-family: arial, sans-serif;
+		flex: 0 1 auto;
+		min-width: 0;
+		color: #ffffff !important;
+	}
+
+	.player-info .player-label {
+		font-size: 0.7rem;
+		white-space: nowrap;
+		font-family: arial, sans-serif;
+		color: #ffffff !important;
+	}
+
+	.player-info #title,
+	.player-info #listeners {
+		font-size: 0.7rem;
+		font-family: arial, sans-serif;
+	}
+
+	#title-mobile,
+	#listeners-mobile {
+		font-size: 0.7rem;
+		color: #ffffff !important;
 	}
 
 	.hamburger span {
@@ -1039,7 +1186,25 @@ iframe {
 	}
 
 	.navbar {
-		order: 3;
+		order: 10;
+		width: 100%;
+		flex-basis: 100%;
+		flex-direction: column;
+		max-height: 0;
+		overflow: hidden;
+		transition: max-height 0.3s ease-out;
+		border-top: 1px solid #555;
+	}
+
+
+	.hamburger span {
+		width: 20px;
+		height: 2px;
+		margin: 4px 0;
+	}
+
+	.navbar {
+		order: 10;
 		width: 100%;
 		flex-basis: 100%;
 		flex-direction: column;

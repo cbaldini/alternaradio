@@ -10,3 +10,5 @@ const CONFIG = {
     statusUrl: 'https://alternaradio.ar:8443/status-json.xsl'
 };
 
+// Exponer CONFIG globalmente
+window.CONFIG = CONFIG;

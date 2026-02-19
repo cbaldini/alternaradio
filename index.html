@@ -1,290 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- CSS  -->
-<link href="style.css?v=2.2.0" rel="stylesheet" type="text/css" />
+<link href="style.css?v=2.0.0" rel="stylesheet" type="text/css" />
 <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
 <title>Alterna Radio FM 88.1 MHZ</title>
 <link rel="icon" type="image/x-icon" href="favicon.png">
-<script src="config.js"></script>
-<script src="audio-manager.js"></script>
-<script src="program-select.js"></script>
-<script>
-function loadJSON(path, success) {
-  var xhr = new XMLHttpRequest();
-  xhr.responseType = 'arraybuffer';
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      var decoder = new TextDecoder('utf-8');
-      var text = decoder.decode(xhr.response);
-      success(JSON.parse(text));
-    }
-  };
-  xhr.open('GET', path, true);
-  xhr.send();
-}
 
-function pickSource(source) {
-  if (Array.isArray(source)) {
-    for (var i = 0; i < source.length; i += 1) {
-      var item = source[i];
-      if (item && (item.mount === '/play' || (item.listenurl && item.listenurl.indexOf('/play') !== -1))) {
-        return item;
-      }
-    }
-    return source[0] || null;
-  }
-  return source || null;
-}
+<!-- Core Dependencies -->
+<script src="js/config.js"></script>
+<script src="js/audio-manager.js"></script>
+<script src="js/program-select.js"></script>
 
-function fixEncoding(text) {
-  if (!text) return text;
-  // Convierte texto mal decodificado (Latin-1/Windows-1252) a UTF-8
-  try {
-    return decodeURIComponent(escape(text));
-  } catch (e) {
-    return text;
-  }
-}
+<!-- MVC Architecture - Utils -->
+<script src="js/utils/helpers.js"></script>
 
-function myData(Data) {
-  var source = pickSource(Data && Data.icestats ? Data.icestats.source : null);
-  var title = '';
-  var listeners = '';
+<!-- MVC Architecture - Models -->
+<script src="js/models/StreamModel.js"></script>
+<script src="js/models/WeatherModel.js"></script>
 
-  if (source) {
-    title = source.title || source.server_name || source.server_description || '';
-    listeners = source.listeners != null ? source.listeners : (source.listener_peak != null ? source.listener_peak : '');
-  }
+<!-- MVC Architecture - Views -->
+<script src="js/views/StreamView.js"></script>
+<script src="js/views/WeatherView.js"></script>
 
-  title = fixEncoding(title);
-  // Quitar 1-3 numeros al inicio y tambien punto/guion inicial si existe
-  title = title.replace(/^\s*(?:[.\-–]\s*)?\d{1,3}\s*(?:[.\-–]\s*)?/,'');
+<!-- MVC Architecture - Controllers -->
+<script src="js/controllers/StreamController.js"></script>
+<script src="js/controllers/WeatherController.js"></script>
+<script src="js/controllers/ContentController.js"></script>
+<script src="js/controllers/AudioPlayerController.js"></script>
+<script src="js/controllers/UIController.js"></script>
 
-  document.getElementById("title").textContent = title;
-  document.getElementById("listeners").textContent = listeners;
-  document.getElementById("title-mobile").textContent = title;
-  document.getElementById("listeners-mobile").textContent = listeners;
-
-  // Actualizar el título de la ventana del navegador
-  if (title) {
-    document.title = title + ' | Alterna Radio FM 88.1 MHZ';
-  }
-
-  // Recalcular marquee en móvil si existe
-  if (window.__updateMobileInfoMarquee) {
-    setTimeout(window.__updateMobileInfoMarquee, 0);
-  }
-}
-
-const contentLoader = {
-  init: function() {
-    this.loadFromHash();
-    window.addEventListener('hashchange', this.loadFromHash.bind(this));
-  },
-  resolvePath: function(hash) {
-    const parts = hash.split('/');
-    const root = parts[0];
-    const slug = parts[1];
-
-    if (hash === '' || hash === 'inicio') return 'main.html';
-    if (hash === 'contacto') return 'contacto.html';
-
-    if (root === 'ies') return slug ? `informe_economico_semanal/${slug}.html` : 'informe_economico_semanal/ies.html';
-    if (root === 'hr') return slug ? `humana_resistencia/${slug}.html` : 'humana_resistencia/hr.html';
-    if (root === 'lml') return slug ? `libertad_motosierra_licuadora/${slug}.html` : 'libertad_motosierra_licuadora/lml.html';
-    if (root === 'veo') return slug ? `voz_en_off/${slug}.html` : 'voz_en_off/veo.html';
-
-    return 'main.html';
-  },
-  loadFromHash: function() {
-    const container = document.getElementById('content');
-    if (!container) return;
-
-    const hash = window.location.hash.substring(1);
-    const path = this.resolvePath(hash);
-
-    fetch(path, { cache: 'no-store' })
-      .then(res => res.ok ? res.text() : Promise.reject(res))
-      .then(html => {
-        container.innerHTML = html;
-        if (window.ProgramSelect && typeof window.ProgramSelect.init === 'function') {
-          window.ProgramSelect.init(container);
-        }
-      })
-      .catch(() => {
-        container.innerHTML = '<p>No se pudo cargar el contenido.</p>';
-      });
-  }
-};
-
-// Exponer contentLoader globalmente para que otros scripts puedan usarlo
-window.contentLoader = contentLoader;
-
-// Inicializar cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function() {
-  // Función para ajustar el padding del body según la altura de la barra superior
-  function adjustBodyPadding() {
-    const topBar = document.querySelector('.top');
-    if (topBar) {
-      const topBarHeight = topBar.offsetHeight;
-      document.body.style.paddingTop = topBarHeight + 'px';
-      console.log('Body padding ajustado a:', topBarHeight + 'px');
-    }
-  }
-
-  // Ajustar al cargar
-  adjustBodyPadding();
-
-  // Ajustar después de un pequeño delay para asegurar que todo esté renderizado
-  setTimeout(adjustBodyPadding, 100);
-  setTimeout(adjustBodyPadding, 500);
-
-  // Ajustar cuando cambie el tamaño de la ventana
-  window.addEventListener('resize', adjustBodyPadding);
-
-  // Ajustar cuando se carguen todas las imágenes y recursos
-  window.addEventListener('load', adjustBodyPadding);
-
-  const audioSource = document.getElementById('audio-source');
-  const audioElement = document.getElementById('main-audio');
-
-  audioSource.src = CONFIG.streamUrl;
-  audioElement.load();
-
-  // Estrategia de autoplay: iniciar con muted y luego intentar quitar mute
-  function startAutoplay() {
-    audioElement.muted = true;
-    const playPromise = audioElement.play();
-
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          console.log('Autoplayer iniciado correctamente (muted)');
-          // Intentar quitar mute después de 1 segundo
-          setTimeout(() => {
-            audioElement.muted = false;
-            console.log('Mute removido');
-          }, 1000);
-        })
-        .catch((error) => {
-          console.log('Error al iniciar autoplay:', error.message);
-          // Fallback: agregar listener para reproducir cuando el usuario interactúe
-          const userInteractionHandler = () => {
-            audioElement.muted = false;
-            audioElement.play().catch(err => console.log('Error en fallback:', err));
-            document.removeEventListener('click', userInteractionHandler);
-            document.removeEventListener('touchend', userInteractionHandler);
-          };
-          document.addEventListener('click', userInteractionHandler);
-          document.addEventListener('touchend', userInteractionHandler);
-        });
-    }
-  }
-
-  // Iniciar autoplay después de que los recursos estén cargados
-  setTimeout(startAutoplay, 500);
-
-  AudioManager.init();
-  contentLoader.init();
-  loadJSON(CONFIG.statusUrl, myData);
-  setInterval(loadJSON, 3000, CONFIG.statusUrl, myData);
-
-  const hamburgerBtn = document.getElementById('hamburger-btn');
-  const navbarMenu = document.getElementById('navbar-menu');
-  const dropdowns = document.querySelectorAll('.dropdown');
-
-  hamburgerBtn.addEventListener('click', function() {
-    hamburgerBtn.classList.toggle('active');
-    navbarMenu.classList.toggle('active');
-  });
-
-  const navLinks = navbarMenu.querySelectorAll('a');
-  navLinks.forEach(link => {
-    link.addEventListener('click', function() {
-      hamburgerBtn.classList.remove('active');
-      navbarMenu.classList.remove('active');
-    });
-  });
-
-  dropdowns.forEach(dropdown => {
-    const dropbtn = dropdown.querySelector('.dropbtn');
-    dropbtn.addEventListener('click', function(e) {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        dropdown.classList.toggle('active');
-      }
-    });
-  });
-
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.dropdown')) {
-      dropdowns.forEach(dropdown => {
-        dropdown.classList.remove('active');
-      });
-    }
-  });
-
-  function updateMobileInfoMarquee() {
-    if (!window.matchMedia || !window.matchMedia('(max-width: 768px)').matches) return;
-
-    var infos = document.querySelectorAll('.player-info-container-mobile .player-info');
-    infos.forEach(function(info) {
-      var span = info.querySelector('span');
-      if (!span) return;
-
-      // Reset
-      info.classList.remove('is-overflow');
-      info.style.removeProperty('--overflow');
-      span.style.transform = '';
-
-      // Medición
-      var overflow = span.scrollWidth - info.clientWidth;
-      if (overflow > 10) {
-        info.classList.add('is-overflow');
-        info.style.setProperty('--overflow', overflow + 'px');
-      }
-    });
-  }
-
-  // Recalcular cuando se cambie el tamaño o se actualice el texto
-  window.addEventListener('resize', function() {
-    setTimeout(updateMobileInfoMarquee, 50);
-  });
-
-  // Exponer para myData()
-  window.__updateMobileInfoMarquee = updateMobileInfoMarquee;
-
-  // Primer cálculo
-  setTimeout(updateMobileInfoMarquee, 700);
-});
-
-function navigate(route) {
-  window.location.hash = '#' + route;
-}
-
-function Copy() {
-  var hash = window.location.hash || '';
-  var base = (window.CONFIG && CONFIG.domain) ? CONFIG.domain : (window.location.origin + window.location.pathname.replace(/\/[^/]*$/, ''));
-  var url = base + hash;
-  var textarea = document.getElementById("urlCopied");
-  if (textarea) {
-    textarea.value = url;
-    textarea.focus();
-    textarea.select();
-  }
-
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(url).catch(function() {});
-  } else if (textarea) {
-    try {
-      document.execCommand('copy');
-    } catch (e) {}
-  }
-}
-</script>
+<!-- MVC Architecture - App -->
+<script src="js/app.js"></script>
 </head>
 <body style="background-color:#272727; background-size: 25%;">
 <div class="top">
@@ -292,15 +41,8 @@ function Copy() {
 		<div class="logo">
 			<a href="#inicio"><img src="img/logoradioplano.png" alt=""></a>
 		</div>
-		<div class="player-info-container-mobile">
-			<div class="player-info">
-				<strong class="player-label">Suena ahora:</strong>
-				<span id="title-mobile"></span>
-			</div>
-			<div class="player-info">
-				<strong class="player-label">Oyentes:</strong>
-				<span id="listeners-mobile"></span>
-			</div>
+		<div class="weather-widget-container">
+			<span class="weather-box" id="id-weather">--°C</span>
 		</div>
 	</div>
 
@@ -309,6 +51,21 @@ function Copy() {
 	  <span></span>
 	  <span></span>
 	</button>
+
+	<div class="player-info-container-mobile">
+		<div class="player-info">
+			<strong class="player-label">Suena ahora:</strong>
+			<span id="title-mobile"></span>
+		</div>
+		<div class="player-info">
+			<strong class="player-label">Oyentes:</strong>
+			<span id="listeners-mobile"></span>
+		</div>
+	</div>
+
+	<div class="weather-widget-container-desktop">
+		<span class="weather-box" id="id-weather-desktop">--°C</span>
+	</div>
 
 	<div class="navbar" id="navbar-menu">
 	  <a href="#inicio">Inicio</a>
@@ -350,7 +107,7 @@ function Copy() {
   <!-- El contenido se cargará aquí dinámicamente -->
 </div>
 
-<center>
+<footer class="site-footer">
 <p>Somos una radio comunitaria de rock y cultura alternativa, hermana de <a href="https://tv.alterna.ar">Alterna TV</a>. Somos Alterna Radio.</p>
 <br><p>Comunicate con nosotros:<br>
 &nbsp; <br><a href="https://www.instagram.com/alternaradio.ar" target="_blank"><img src="img/ig.png" width="3%" height="3%" alt=""></a>
@@ -358,6 +115,6 @@ function Copy() {
 &nbsp;&nbsp;<a href="https://t.me/alternamedia" target="_blank"><img src="img/tg.png" width="3%" height="3%" alt=""></a></p>
 <br>
 <p>&copy; 2026 - Alterna Radio FM 88.1 MHZ, Miramar, Buenos Aires, Argentina. </p>
-</center>
+</footer>
 </body>
 </html>

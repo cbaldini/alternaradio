@@ -1,0 +1,117 @@
+┌──────────────────────────────────────────────────────────────────┐
+│                         ALTERNA RADIO                             │
+│                    Arquitectura MVC v2.0                          │
+└──────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│                           index.html                                 │
+│  (HTML Limpio - Sin JavaScript inline)                              │
+└─────────────────────────────────────────────────────────────────────┘
+                                  │
+                                  ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                            app.js                                    │
+│  • Inicializa toda la aplicación                                    │
+│  • Coordina todos los módulos                                       │
+│  • Punto de entrada principal                                       │
+└─────────────────────────────────────────────────────────────────────┘
+                                  │
+              ┌───────────────────┼───────────────────┐
+              ▼                   ▼                   ▼
+    ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+    │   MODELS        │  │   VIEWS         │  │  CONTROLLERS    │
+    │   (Datos)       │  │   (UI)          │  │  (Lógica)       │
+    └─────────────────┘  └─────────────────┘  └─────────────────┘
+              │                   │                   │
+    ┌─────────┴─────────┐        │        ┌──────────┴──────────┐
+    ▼                   ▼        │        ▼                     ▼
+┌──────────┐      ┌──────────┐  │  ┌──────────┐         ┌──────────┐
+│ Stream   │      │ Weather  │  │  │ Stream   │         │ Weather  │
+│ Model    │      │ Model    │  │  │Controller│         │Controller│
+└──────────┘      └──────────┘  │  └──────────┘         └──────────┘
+                                │         │                     │
+                         ┌──────┴─────┐   │                     │
+                         ▼            ▼   │                     │
+                    ┌──────────┐ ┌──────────┐                  │
+                    │ Stream   │ │ Weather  │                  │
+                    │ View     │ │ View     │                  │
+                    └──────────┘ └──────────┘                  │
+                         │            │                        │
+                         └────────────┴────────────────────────┘
+                                      │
+                                      ▼
+                            ┌─────────────────┐
+                            │   DOM (HTML)    │
+                            │  • #title       │
+                            │  • #listeners   │
+                            │  • #id-weather  │
+                            └─────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│                    OTROS CONTROLADORES                               │
+├─────────────────────────────────────────────────────────────────────┤
+│  ContentController     → Navegación SPA (Single Page App)           │
+│  AudioPlayerController → Reproductor de audio + autoplay            │
+│  UIController          → Menú hamburguesa, dropdowns, responsive    │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│                       UTILIDADES                                     │
+├─────────────────────────────────────────────────────────────────────┤
+│  helpers.js           → Funciones auxiliares reutilizables          │
+│   • loadJSON()        → Cargar datos JSON                           │
+│   • fixEncoding()     → Corregir encoding UTF-8                     │
+│   • cleanTitle()      → Limpiar títulos                             │
+│   • copyToClipboard() → Copiar al portapapeles                      │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│                    MÓDULOS LEGACY                                    │
+├─────────────────────────────────────────────────────────────────────┤
+│  config.js            → Configuración del sitio                     │
+│  audio-manager.js     → Gestor de audio global                      │
+│  program-select.js    → Selectores de programas                     │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────┐
+│                    TEMPLATES HTML                                    │
+├─────────────────────────────────────────────────────────────────────┤
+│  views/                                                              │
+│  ├── main.html                     → Página principal               │
+│  ├── contacto.html                 → Página de contacto             │
+│  ├── informe_economico_semanal/    → Programa IES                   │
+│  ├── humana_resistencia/           → Programa HR                    │
+│  ├── libertad_motosierra_licuadora/→ Programa LML                   │
+│  └── voz_en_off/                   → Programa VEO                   │
+└─────────────────────────────────────────────────────────────────────┘
+
+╔═════════════════════════════════════════════════════════════════════╗
+║                      FLUJO DE DATOS                                  ║
+╠═════════════════════════════════════════════════════════════════════╣
+║                                                                      ║
+║  1. Usuario carga la página                                         ║
+║      ↓                                                               ║
+║  2. app.js inicializa todos los controladores                       ║
+║      ↓                                                               ║
+║  3. Controladores solicitan datos a los Modelos                     ║
+║      ↓                                                               ║
+║  4. Modelos obtienen datos (API, JSON)                              ║
+║      ↓                                                               ║
+║  5. Controladores reciben datos procesados                          ║
+║      ↓                                                               ║
+║  6. Controladores pasan datos a las Vistas                          ║
+║      ↓                                                               ║
+║  7. Vistas actualizan el DOM                                        ║
+║      ↓                                                               ║
+║  8. Usuario ve la información actualizada                           ║
+║                                                                      ║
+╚═════════════════════════════════════════════════════════════════════╝
+
+VENTAJAS:
+✓ Código organizado y modular
+✓ Fácil mantenimiento
+✓ Escalable
+✓ Testeable
+✓ HTML limpio sin JavaScript inline
+✓ Siguiendo estándares profesionales MVC
+
