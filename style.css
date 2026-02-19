@@ -464,7 +464,68 @@ body {
 	text-align: center;
 }
 
+.program-select-wrapper {
+	margin: 10px 0 15px;
+	display: flex;
+	justify-content: center;
+}
 
+.program-episode-select {
+	padding: 8px 12px;
+	border-radius: 6px;
+	border: 1px solid #666;
+	background-color: #1d1d1d;
+	color: whitesmoke;
+	font-family: arial, sans-serif;
+	font-size: 100%;
+	cursor: pointer;
+	min-width: 250px;
+}
+
+.program-episode-select:hover {
+	background-color: #333;
+}
+
+.program-episode-embed {
+	margin: 15px 0 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+}
+
+.program-episode-title {
+	margin: 5px 0;
+	color: whitesmoke;
+	font-family: 'Courier', monospace;
+	font-size: 95%;
+	font-weight: normal;
+}
+
+.program-episode-actions {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 8px 0 12px;
+}
+
+.program-episode-actions button {
+	padding: 6px 10px;
+	border-radius: 6px;
+	border: 1px solid #666;
+	background-color: #1d1d1d;
+	color: whitesmoke;
+	cursor: pointer;
+}
+
+.program-episode-actions button:hover {
+	background-color: #333;
+}
+
+.program-select-enhanced .program-links {
+	display: none;
+}
 
 /* Clase para rotación rápida */
 .logo img.spin {

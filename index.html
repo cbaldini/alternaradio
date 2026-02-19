@@ -10,6 +10,7 @@
 <link rel="icon" type="image/x-icon" href="favicon.png">
 <script src="config.js"></script>
 <script src="audio-manager.js"></script>
+<script src="program-select.js"></script>
 <script>
 function loadJSON(path, success) {
   var xhr = new XMLHttpRequest();
@@ -109,12 +110,18 @@ const contentLoader = {
       .then(res => res.ok ? res.text() : Promise.reject(res))
       .then(html => {
         container.innerHTML = html;
+        if (window.ProgramSelect && typeof window.ProgramSelect.init === 'function') {
+          window.ProgramSelect.init(container);
+        }
       })
       .catch(() => {
         container.innerHTML = '<p>No se pudo cargar el contenido.</p>';
       });
   }
 };
+
+// Exponer contentLoader globalmente para que otros scripts puedan usarlo
+window.contentLoader = contentLoader;
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
