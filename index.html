@@ -20,14 +20,17 @@
 <!-- MVC Architecture - Models -->
 <script src="js/models/StreamModel.js"></script>
 <script src="js/models/WeatherModel.js"></script>
+<script src="js/models/DateModel.js"></script>
 
 <!-- MVC Architecture - Views -->
 <script src="js/views/StreamView.js"></script>
 <script src="js/views/WeatherView.js"></script>
+<script src="js/views/DateView.js"></script>
 
 <!-- MVC Architecture - Controllers -->
 <script src="js/controllers/StreamController.js"></script>
 <script src="js/controllers/WeatherController.js"></script>
+<script src="js/controllers/DateController.js"></script>
 <script src="js/controllers/ContentController.js"></script>
 <script src="js/controllers/AudioPlayerController.js"></script>
 <script src="js/controllers/UIController.js"></script>
@@ -52,6 +55,8 @@
 			<a href="#inicio"><img src="img/logoradioplano.png" alt=""></a>
 		</div>
 		<div class="weather-widget-container">
+			<span class="date-box" id="id-date">-- de --</span>
+			<span class="time-box" id="id-time">--:--</span>
 			<span class="weather-box" id="id-weather">--°C</span>
 		</div>
 	</div>
@@ -75,6 +80,8 @@
 	</div>
 
 	<div class="weather-widget-container-desktop">
+		<span class="date-box" id="id-date-desktop">-- de --</span>
+		<span class="time-box" id="id-time-desktop">--:--</span>
 		<span class="weather-box" id="id-weather-desktop">--°C</span>
 	</div>
 

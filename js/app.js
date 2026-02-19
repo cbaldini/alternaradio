@@ -14,6 +14,7 @@ const App = {
     AudioPlayerController.init();
     StreamController.init();
     WeatherController.init();
+    DateController.init();
     ContentController.init();
 
     // Inicializar AudioManager (gestor de audio)
