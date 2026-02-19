@@ -4,10 +4,38 @@
 
 const App = {
   /**
+   * Verifica que todas las dependencias estén cargadas
+   */
+  checkDependencies: function() {
+    const required = [
+      'DateModel', 'DateView', 'DateController',
+      'WeatherModel', 'WeatherView', 'WeatherController',
+      'StreamModel', 'StreamView', 'StreamController',
+      'ContentController', 'AudioPlayerController', 'UIController'
+    ];
+
+    const missing = required.filter(dep => !window[dep]);
+
+    if (missing.length > 0) {
+      console.warn('Dependencias faltantes:', missing);
+      return false;
+    }
+
+    return true;
+  },
+
+  /**
    * Inicializa la aplicación
    */
   init: function() {
     console.log('Iniciando Alterna Radio App...');
+
+    // Verificar dependencias
+    if (!this.checkDependencies()) {
+      console.error('No todas las dependencias están cargadas. Reintentando...');
+      setTimeout(() => this.init(), 100);
+      return;
+    }
 
     // Inicializar todos los controladores en orden
     UIController.init();
